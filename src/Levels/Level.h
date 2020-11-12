@@ -13,7 +13,6 @@
 
 using namespace River::ECS;
 
-#define DEG_TO_RADIANS(x) (x) * 3.14159265 / 180
 
 Entity* createMouseBlock(Domain* domain) {
 	auto entity = domain->createEntity();
@@ -44,7 +43,6 @@ public:
 		camera = new River::Camera(1280, 720);
 		camera->setPosition(0, 0, 0);
 
-
 		primaryLayer = parentLayer->pushLayer();
 		backgroundLayer = primaryLayer->pushLayer();
 
@@ -58,7 +56,7 @@ public:
 				transform->y = 0;
 			}
 
-			player = Player::create(objectDomain, mouse);
+			player = Objects::Player::create(objectDomain, mouse);
 			
 		});
 
@@ -91,6 +89,7 @@ public:
 			transform->y = e.positionY;
 		});
 
+
 		objectLayer->onKeyEvent([this](River::KeyEvent& e) {
 			if( e.key == River::Key::SPACE ) {
 				if( e.action == River::KeyEvent::Action::PRESSED ) {
@@ -108,12 +107,25 @@ public:
 			}
 		});
 
+		objectLayer->onMouseButtonEvent([this](River::MouseButtonEvent& e) {
+			if( e.button == River::MouseButtons::LEFT ) {
+				if( e.action == River::MouseButtonAction::PRESSED ) {
+					playerFireCooldown -= 0.01;
+					if( playerFireCooldown < 0 ) {
+						Objects::Player::createMissile(objectDomain, player);
+						playerFireCooldown += 0.10;
+					}
+				}
+			}
+		});
 
 	}
 
 
 
 private:
+
+	double playerFireCooldown = 0.0;
 
 	River::Layer* primaryLayer;
 	River::Layer* backgroundLayer;

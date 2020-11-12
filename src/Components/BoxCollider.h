@@ -38,10 +38,12 @@ private:
 };
 
 namespace ColliderTypes {
-	const ColliderType	UNKNOWN		= ColliderType::define();
-	const ColliderType	PLAYER		= ColliderType::define();
-	const ColliderType	ENEMY		= ColliderType::define();
-	const ColliderType	DEBRIS		= ColliderType::define();
+	const ColliderType	UNKNOWN			= ColliderType::define();
+	const ColliderType	PLAYER			= ColliderType::define();
+	const ColliderType	PLAYER_MISSILE	= ColliderType::define();
+	const ColliderType	ENEMY			= ColliderType::define();
+	const ColliderType	ENEMY_MISSILE   = ColliderType::define();
+	const ColliderType	DEBRIS			= ColliderType::define();
 }
 
  // Hash for ColliderType

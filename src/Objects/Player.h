@@ -2,6 +2,8 @@
 
 #include <River.h>
 
+#include "Objects/Missile.h"
+
 #include "Components/BoxCollider.h"
 #include "Components/Move.h"
 #include "Components/Target.h"
@@ -10,45 +12,53 @@
 
 using namespace River::ECS;
 
-namespace Player {
+namespace Objects::Player {
 		
 
 	Entity* create(Domain* domain, Entity* mouseEntity) {
 
-		auto player = domain->createEntity();
+		auto object = Objects::create(domain);
 
-		auto transform = player->addComponent<Transform>();
-		transform->height = 50;
-		transform->width = transform->height * GlobalAssets::Textures::PLAYER->getAspectRatio();
-		transform->x = 0;
-		transform->y = 0;
-		transform->depth = 10;
+		object.transform->height = 50;
+		object.transform->width = 50 * GlobalAssets::Textures::PLAYER->getAspectRatio();
+		object.transform->depth = 10;
 
-		auto move = player->addComponent<Move>();
-		move->velocityX = 0.0;
-		move->velocityY = 0;
-		move->accelerationX = 0;
-		move->accelerationY = 0;
-		move->resistance = 0.05;
+		object.move->resistance = 0.05;
 
-		auto sprite = player->addComponent<Sprite>();
-		sprite->rotationOffset = 90;
-		sprite->texture = GlobalAssets::Textures::PLAYER;
+		object.sprite->rotationOffset = 90;
+		object.sprite->texture = GlobalAssets::Textures::PLAYER;
 
-		auto collider = player->addComponent<BoxCollider>();
-		collider->width = 40;
-		collider->height = 40;
-		collider->type = ColliderTypes::PLAYER;
-		collider->xOffset = 0;
-		collider->yOffset = 0;
-		collider->enabled = true;
+		object.collider->width = 40;
+		object.collider->height = 40;
+		object.collider->type = ColliderTypes::PLAYER;
 
-		auto target = player->addComponent<Target>();
+		auto target = object.entity->addComponent<Target>();
 		target->target = mouseEntity;
 		target->velocity = 6;
 
 
-		return player;
+		return object.entity;
+	}
+
+
+
+
+	inline Entity* createMissile(Domain* domain, Entity* player) {
+		auto playerTransform = player->getComponent<Transform>();
+		
+		auto object = Objects::Missile::create(domain, playerTransform->x, playerTransform->y, playerTransform->rotation, 20.0);
+
+		object.sprite->texture = GlobalAssets::Textures::LASER_BLUE;
+		object.sprite->rotationOffset = -90;
+		
+		object.transform->width = 30 * GlobalAssets::Textures::LASER_BLUE->getAspectRatio();
+		object.transform->height = 30;
+
+		object.collider->type = ColliderTypes::PLAYER_MISSILE;
+		object.collider->width = object.transform->width;
+		object.collider->height = object.transform->height;
+
+		return object.entity;
 	}
 
 }

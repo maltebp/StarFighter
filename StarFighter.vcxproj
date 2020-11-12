@@ -153,6 +153,8 @@
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Objects\Missile.h" />
+    <ClInclude Include="src\Objects\Object.h" />
     <ClInclude Include="src\Systems\TargetSystem.h" />
     <ClInclude Include="src\Components\Target.h" />
     <ClInclude Include="src\Components\BoxCollider.h" />
@@ -165,6 +167,7 @@
     <ClInclude Include="src\Objects\Player.h" />
     <ClInclude Include="src\Systems\CollisionSystem.h" />
     <ClInclude Include="src\Systems\MovementSystem.h" />
+    <ClInclude Include="src\Utility\Math.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

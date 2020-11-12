@@ -14,9 +14,8 @@ namespace GlobalAssets {
 
 		Texture* PLAYER = Texture::create(
 			Image::create("assets/player.png")
-			.setPartiallyTransparent(true)
-			.finish()
-		, true)
+				.setPartiallyTransparent(true)
+				.finish(), true)
 			.setAssetCollection(COLLECTION)
 			.finish();
 
@@ -24,6 +23,15 @@ namespace GlobalAssets {
 		Texture* SQUARE = Texture::create(Image::create("assets/white_square.png").finish(), true)
 			.setAssetCollection(COLLECTION)
 			.finish();
+
+
+		Texture* LASER_BLUE = Texture::create(
+			Image::create("assets/laser_blue.png")
+				.setPartiallyTransparent(true)
+				.finish(), true)
+			.setAssetCollection(COLLECTION)
+			.finish();
+
 
 		/*const River::Texture* BACKGROUND = new River::Texture(
 			"assets/black_background.png", false, 0, 0, 0, 0
