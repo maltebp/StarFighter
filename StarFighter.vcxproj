@@ -153,6 +153,9 @@
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Systems\HealthSystem.h" />
+    <ClInclude Include="src\Components\DamageLoad.h" />
+    <ClInclude Include="src\Components\Health.h" />
     <ClInclude Include="src\Objects\Debris.h" />
     <ClInclude Include="src\Objects\Missile.h" />
     <ClInclude Include="src\Objects\Object.h" />

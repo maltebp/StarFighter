@@ -5,6 +5,8 @@
 
 #include <River.h>
 #include "Log.h"
+#include "Components/Health.h"
+#include "Components/DamageLoad.h"
 #include "Components/BoxCollider.h"
 
 #define PI 3.14159265
@@ -134,7 +136,7 @@ public:
 			pair.second.clear();
 		} 
 
-		domain->forEachEntity<Transform, BoxCollider>([](Entity* e, Transform* transform, BoxCollider* collider) {
+		domain->forMatchingEntities<Transform, BoxCollider>([](Entity* e, Transform* transform, BoxCollider* collider) {
 			if( !collider->enabled ) return;
 			double offsetLength = sqrt(collider->xOffset * collider->xOffset + collider->yOffset * collider->yOffset);
 			double diagonal = sqrt(collider->width * collider->width + collider->height * collider->height);
@@ -152,9 +154,16 @@ public:
 		// Player - Enemies
 
 		// Player Missiles - Debris
-		checkCollisions(typeMap[ColliderTypes::PLAYER_MISSILE], typeMap[ColliderTypes::DEBRIS], [](Entity* missile, Entity* debris) {
+		checkCollisions(typeMap[ColliderTypes::PLAYER_MISSILE], typeMap[ColliderTypes::DEBRIS], [&domain](Entity* missile, Entity* debris) {
 			LOG("Collision: PlayerMissile-Debris!");
+			debris->getComponent<Health>()->amount -= missile->getComponent<DamageLoad>()->amount;
+			missile->getComponent<BoxCollider>()->enabled = false;
+			domain->destroyEntity(missile);
 		});
+
+
+
+		
 
 		// Missiles - Enemies
 		// EMissiles - Player

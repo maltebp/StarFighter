@@ -67,9 +67,13 @@ public:
 
 		objectLayer->onUpdate([this]() {
 			objectDomain->clean();   
+
+			if( playerFireCooldown > 0 )
+				playerFireCooldown -= 0.01;
+
 			
 
-			//LOG(River::Game::getFps());
+			LOG("FPS: " << River::Game::getFps() << "  Entities: " << objectDomain->getNumEntities());
 
 			//LOG(getAngle(mouseX, mouseY));
 
@@ -114,10 +118,10 @@ public:
 		objectLayer->onMouseButtonEvent([this](River::MouseButtonEvent& e) {
 			if( e.button == River::MouseButtons::LEFT ) {
 				if( e.action == River::MouseButtonAction::PRESSED ) {
-					playerFireCooldown -= 0.01;
-					if( playerFireCooldown < 0 ) {
+					if( playerFireCooldown <= 0 ) {
 						Objects::Player::createMissile(objectDomain, player);
-						playerFireCooldown += 0.10;
+						playerFireCooldown += 0.05;
+						LOG("FIRE!");
 					}
 				}
 			}

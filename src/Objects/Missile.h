@@ -2,11 +2,21 @@
 
 #include "Utility/Math.h"
 #include "Objects/Object.h"
+#include "Components/DamageLoad.h"
 
 
 namespace Objects::Missile {
 
-	inline Objects::Object create(Domain* domain, double x, double y, double direction, double velocity) {
+	struct MissileObject {
+		Entity* entity;
+		Transform* transform;
+		Sprite* sprite;
+		Move* move;
+		BoxCollider* collider;
+		DamageLoad* damage;
+	};
+
+	inline MissileObject create(Domain* domain, double x, double y, double direction, double velocity) {
 		auto object = Objects::create(domain);
 
 		object.transform->rotation = direction;
@@ -16,8 +26,10 @@ namespace Objects::Missile {
 		auto rotationRadians = DEG_TO_RADIANS(object.transform->rotation);
 		object.move->velocityX = cos(rotationRadians) * velocity;
 		object.move->velocityY = sin(rotationRadians) * velocity;
+
+		auto damage = object.entity->addComponent<DamageLoad>();
 		
-		return object;	
+		return { object.entity, object.transform, object.sprite, object.move, object.collider, damage };
 	}
 
 

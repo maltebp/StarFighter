@@ -23,7 +23,7 @@ public:
 	static void update(Domain* domain) {
 
 
-		domain->forEachEntity<Transform, Target>([](Entity* entity, Transform* transform, Target* target) {
+		domain->forMatchingEntities<Transform, Target>([](Entity* entity, Transform* transform, Target* target) {
 			if( target->target == nullptr ) return;
 
 			auto targetTransform = target->target->getComponent<Transform>();

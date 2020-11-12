@@ -3,6 +3,7 @@
 
 #include "GlobalAssets.h"
 
+#include "Components/Health.h"
 #include "Utility/Math.h"
 #include "Objects/Object.h"
 
@@ -26,12 +27,12 @@ namespace Objects::Debris {
 
 		object.move->rotationVelocity = 1;
 
+		auto health = object.entity->addComponent<Health>();
+		health->amount = 50;
+		health->invulnerable = false;
+
 
 		return object.entity;
 	}
-
-
-	inline Entity*
-
 
 }

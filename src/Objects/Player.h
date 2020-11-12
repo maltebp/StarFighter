@@ -58,6 +58,8 @@ namespace Objects::Player {
 		object.collider->width = object.transform->width;
 		object.collider->height = object.transform->height;
 
+		object.damage->amount = 30;
+
 		return object.entity;
 	}
 
