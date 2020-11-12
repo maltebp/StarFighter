@@ -2,6 +2,8 @@
 
 #include <River.h>
 
+#include "Log.h"
+
 #include "Components/Move.h"
 #include "Components/Target.h"
 
@@ -27,7 +29,11 @@ public:
 			auto targetTransform = target->target->getComponent<Transform>();
 
 
-			auto angleDifference = getAngle(targetTransform->x, targetTransform->y) - transform->rotation;
+			auto targetAngle = getAngle(targetTransform->x-transform->x, targetTransform->y-transform->y);
+			auto angleDifference = targetAngle - transform->rotation;
+
+			LOG(targetAngle);
+
 
 			auto direction = angleDifference > 0 ? 1 : -1;
 
@@ -35,6 +41,8 @@ public:
 
 			if( absoluteDifference > 180 )
 				direction *= -1;
+
+
 
 			auto angleMovement = (target->velocity > absoluteDifference ? absoluteDifference : target->velocity) * direction;
 

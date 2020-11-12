@@ -13,12 +13,7 @@
 
 using namespace River::ECS;
 
-
-double getAngle(double x, double y) {
-	if( y > 0 ) return acos(x / sqrt(x * x + y * y)) * 180 / PI;
-	return 360 - acos(x / sqrt(x * x + y * y)) * 180 / PI;
-}
-
+#define DEG_TO_RADIANS(x) (x) * 3.14159265 / 180
 
 Entity* createMouseBlock(Domain* domain) {
 	auto entity = domain->createEntity();
@@ -72,7 +67,7 @@ public:
 			objectDomain->clean();   
 			
 
-			LOG(River::Game::getFps());
+			//LOG(River::Game::getFps());
 
 			//LOG(getAngle(mouseX, mouseY));
 
@@ -94,6 +89,23 @@ public:
 			auto transform = mouse->getComponent<Transform>();
 			transform->x = e.positionX;
 			transform->y = e.positionY;
+		});
+
+		objectLayer->onKeyEvent([this](River::KeyEvent& e) {
+			if( e.key == River::Key::SPACE ) {
+				if( e.action == River::KeyEvent::Action::PRESSED ) {
+					auto move = player->getComponent<Move>();
+					auto transform = player->getComponent<Transform>();
+					auto rotationRadians = DEG_TO_RADIANS(transform->rotation);
+					move->accelerationX = cos(rotationRadians) * 0.6;
+					move->accelerationY = sin(rotationRadians) * 0.6;
+				}else
+				if( e.action == River::KeyEvent::Action::UP ) {
+					auto move = player->getComponent<Move>();
+					move->accelerationX = 0;
+					move->accelerationY = 0;
+				}
+			}
 		});
 
 

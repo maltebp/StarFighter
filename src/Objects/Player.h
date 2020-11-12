@@ -27,6 +27,9 @@ namespace Player {
 		auto move = player->addComponent<Move>();
 		move->velocityX = 0.0;
 		move->velocityY = 0;
+		move->accelerationX = 0;
+		move->accelerationY = 0;
+		move->resistance = 0.05;
 
 		auto sprite = player->addComponent<Sprite>();
 		sprite->rotationOffset = 90;
@@ -42,7 +45,7 @@ namespace Player {
 
 		auto target = player->addComponent<Target>();
 		target->target = mouseEntity;
-		target->velocity = 7;
+		target->velocity = 6;
 
 
 		return player;
