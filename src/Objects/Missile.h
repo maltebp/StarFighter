@@ -3,6 +3,7 @@
 #include "Utility/Math.h"
 #include "Objects/Object.h"
 #include "Components/DamageLoad.h"
+#include "Components/TimedLife.h"
 
 
 namespace Objects::Missile {
@@ -28,6 +29,9 @@ namespace Objects::Missile {
 		object.move->velocityY = sin(rotationRadians) * velocity;
 
 		auto damage = object.entity->addComponent<DamageLoad>();
+
+		auto timedLife = object.entity->addComponent<TimedLife>();
+		timedLife->duration = 10;
 		
 		return { object.entity, object.transform, object.sprite, object.move, object.collider, damage };
 	}

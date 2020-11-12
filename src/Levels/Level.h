@@ -1,15 +1,20 @@
 #pragma once
 
-#include <River.h>
 
 #include <math.h>
 
+#include <River.h>
+
+#include "Log.h"
+
 #include "Objects/Debris.h"
+#include "Objects/Player.h"
+
 #include "Systems/CollisionSystem.h"
 #include "Systems/TargetSystem.h"
-#include "Log.h"
-#include "Objects/Player.h"
+#include "Systems/HealthSystem.h"
 #include "Systems/MovementSystem.h"
+#include "Systems/TimedLifeSystem.h"
 
 
 using namespace River::ECS;
@@ -61,6 +66,12 @@ public:
 
 
 			Objects::Debris::createMeteor(objectDomain, -100, -100, 30);
+			Objects::Debris::createMeteor(objectDomain,  100,  100, 30);
+			Objects::Debris::createMeteor(objectDomain, -100,  100, 30);
+			Objects::Debris::createMeteor(objectDomain,  100, -100, 30);
+			Objects::Debris::createMeteor(objectDomain,   90,   -40, 30);
+			Objects::Debris::createMeteor(objectDomain,  -25,  150, 30);
+			Objects::Debris::createMeteor(objectDomain,    0, -100, 30);
 			
 		});
 
@@ -88,6 +99,8 @@ public:
 			TargetSystem::update(objectDomain);
 			MovementSystem::update(objectDomain);
 			CollisionSystem::update(objectDomain);
+			HealthSystem::update(objectDomain);
+			TimedLifeSystem::update(objectDomain);
 			River::SpriteRenderingSystem::render(camera, *objectDomain);
 		});
 
