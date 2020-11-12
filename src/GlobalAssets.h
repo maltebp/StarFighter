@@ -32,6 +32,13 @@ namespace GlobalAssets {
 			.setAssetCollection(COLLECTION)
 			.finish();
 
+		Texture* METEOR_BROWN_MEDIUM_1 = Texture::create(
+			Image::create("assets/meteor_brown_medium1.png")
+				.setPartiallyTransparent(true)	
+				.finish(), true)
+			.setAssetCollection(COLLECTION)
+			.finish();
+
 
 		/*const River::Texture* BACKGROUND = new River::Texture(
 			"assets/black_background.png", false, 0, 0, 0, 0

@@ -18,6 +18,8 @@ public:
 
 			transform->x += move->velocityX;
 			transform->y += move->velocityY;
+
+			transform->rotation += move->rotationVelocity;
 			
 		});
 

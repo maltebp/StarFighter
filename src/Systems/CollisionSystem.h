@@ -150,7 +150,12 @@ public:
 
 		// Player - Collectibles
 		// Player - Enemies
-		// Missiles - Debris
+
+		// Player Missiles - Debris
+		checkCollisions(typeMap[ColliderTypes::PLAYER_MISSILE], typeMap[ColliderTypes::DEBRIS], [](Entity* missile, Entity* debris) {
+			LOG("Collision: PlayerMissile-Debris!");
+		});
+
 		// Missiles - Enemies
 		// EMissiles - Player
 		// Emissiles - Debris

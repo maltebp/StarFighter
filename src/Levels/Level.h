@@ -4,6 +4,7 @@
 
 #include <math.h>
 
+#include "Objects/Debris.h"
 #include "Systems/CollisionSystem.h"
 #include "Systems/TargetSystem.h"
 #include "Log.h"
@@ -57,6 +58,9 @@ public:
 			}
 
 			player = Objects::Player::create(objectDomain, mouse);
+
+
+			Objects::Debris::createMeteor(objectDomain, -100, -100, 30);
 			
 		});
 

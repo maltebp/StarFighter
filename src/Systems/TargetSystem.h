@@ -32,7 +32,7 @@ public:
 			auto targetAngle = getAngle(targetTransform->x-transform->x, targetTransform->y-transform->y);
 			auto angleDifference = targetAngle - transform->rotation;
 
-			LOG(targetAngle);
+			//LOG(targetAngle);
 
 
 			auto direction = angleDifference > 0 ? 1 : -1;

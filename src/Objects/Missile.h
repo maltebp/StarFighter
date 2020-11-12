@@ -6,7 +6,7 @@
 
 namespace Objects::Missile {
 
-	inline Object create(Domain* domain, double x, double y, double direction, double velocity) {
+	inline Objects::Object create(Domain* domain, double x, double y, double direction, double velocity) {
 		auto object = Objects::create(domain);
 
 		object.transform->rotation = direction;
@@ -16,7 +16,7 @@ namespace Objects::Missile {
 		auto rotationRadians = DEG_TO_RADIANS(object.transform->rotation);
 		object.move->velocityX = cos(rotationRadians) * velocity;
 		object.move->velocityY = sin(rotationRadians) * velocity;
-
+		
 		return object;	
 	}
 

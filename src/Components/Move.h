@@ -8,4 +8,6 @@ struct Move : public River::ECS::Component {
 	double velocityY = 0;
 	double accelerationX = 0;
 	double accelerationY = 0;
+
+	double rotationVelocity = 0;
 };

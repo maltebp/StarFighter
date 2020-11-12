@@ -1,3 +1,4 @@
+#pragma once
 
 #include <tuple>
 
@@ -10,6 +11,7 @@
 using namespace River::ECS;
 
 namespace Objects {
+	
 	struct Object {
 		Entity* entity;
 		Transform* transform;
@@ -42,6 +44,7 @@ namespace Objects {
 		move->accelerationX = 0;
 		move->accelerationY = 0,
 		move->resistance = 0;
+		move->rotationVelocity = 0;
 
 		auto collider = entity->addComponent<BoxCollider>();
 		collider->enabled = true;
