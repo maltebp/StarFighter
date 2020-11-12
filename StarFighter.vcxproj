@@ -153,6 +153,8 @@
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Systems\TargetSystem.h" />
+    <ClInclude Include="src\Components\Target.h" />
     <ClInclude Include="src\Components\BoxCollider.h" />
     <ClInclude Include="src\Components\Move.h" />
     <ClInclude Include="src\Log.h" />

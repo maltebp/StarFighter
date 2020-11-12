@@ -4,6 +4,7 @@
 
 #include "Components/BoxCollider.h"
 #include "Components/Move.h"
+#include "Components/Target.h"
 #include "GlobalAssets.h"
 #include "Domains.h"
 
@@ -12,7 +13,7 @@ using namespace River::ECS;
 namespace Player {
 		
 
-	Entity* create(Domain* domain) {
+	Entity* create(Domain* domain, Entity* mouseEntity) {
 
 		auto player = domain->createEntity();
 
@@ -38,6 +39,11 @@ namespace Player {
 		collider->xOffset = 0;
 		collider->yOffset = 0;
 		collider->enabled = true;
+
+		auto target = player->addComponent<Target>();
+		target->target = mouseEntity;
+		target->velocity = 7;
+
 
 		return player;
 	}

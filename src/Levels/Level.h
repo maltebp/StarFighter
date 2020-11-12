@@ -5,11 +5,11 @@
 #include <math.h>
 
 #include "Systems/CollisionSystem.h"
+#include "Systems/TargetSystem.h"
 #include "Log.h"
 #include "Objects/Player.h"
 #include "Systems/MovementSystem.h"
 
-#define PI 3.14159265
 
 using namespace River::ECS;
 
@@ -55,45 +55,22 @@ public:
 
 		objectLayer = primaryLayer->pushLayer();
 		objectLayer->onCreate([this]() {
-			player = Player::create(objectDomain);
-			mouseBlock = createMouseBlock(objectDomain);
+
+			{	// Create mouse entity
+				mouse = objectDomain->createEntity();
+				auto transform = mouse->addComponent<Transform>();
+				transform->x = 0;
+				transform->y = 0;
+			}
+
+			player = Player::create(objectDomain, mouse);
+			
 		});
 
 
 		objectLayer->onUpdate([this]() {
 			objectDomain->clean();   
-
-			{
-				auto transform = mouseBlock->getComponent<Transform>();
-				transform->x = mouseX;
-				transform->y = mouseY;
-			}
 			
-			auto playerTransform = player->getComponent<Transform>();
-
-			auto angleDifference = getAngle(mouseX, mouseY) - playerTransform->rotation;
-			
-			auto direction = angleDifference > 0 ? 1 : -1;
-			
-			auto absoluteDifference = angleDifference * direction;
-
-			if( absoluteDifference > 180 )
-				direction *= -1;
-
-			auto angleMovement = (5 > absoluteDifference ? absoluteDifference : 5) * direction;
-			
-			playerTransform->rotation += angleMovement;
-			
-			// Do "double" modolu
-			playerTransform->rotation = ((int) playerTransform->rotation)%360;
-			if( playerTransform->rotation < 0 )
-				playerTransform->rotation += 360;
-			
-
-			auto playerSprite = player->getComponent<Sprite>();
-
-			//auto rotationRadians = getAngle(mouseX, mouseY);// -atan((mouseY - playerTransform->y) / (mouseX - playerTransform->x));
-
 
 			LOG(River::Game::getFps());
 
@@ -107,16 +84,16 @@ public:
 			/*playerMove->velocityX = (mouseX - playerTransform->x) / 25;
 			playerMove->velocityY = (mouseY - playerTransform->y) / 25;*/
 
+			TargetSystem::update(objectDomain);
 			MovementSystem::update(objectDomain);
 			CollisionSystem::update(objectDomain);
 			River::SpriteRenderingSystem::render(camera, *objectDomain);
 		});
 
 		objectLayer->onMouseMoveEvent([this](River::MouseMoveEvent& e) {
-			mouseX = e.positionX;
-			mouseY = e.positionY;
-			//LOG(mouseX);
-			//LOG(mouseY);
+			auto transform = mouse->getComponent<Transform>();
+			transform->x = e.positionX;
+			transform->y = e.positionY;
 		});
 
 
@@ -125,8 +102,6 @@ public:
 
 
 private:
-	double mouseX = 0;
-	double mouseY = 0;
 
 	River::Layer* primaryLayer;
 	River::Layer* backgroundLayer;
@@ -135,7 +110,8 @@ private:
 	Domain* objectDomain;
 
 	Entity* player;
-	Entity* mouseBlock;
+
+	Entity* mouse;
 
 	River::Camera* camera;
 
