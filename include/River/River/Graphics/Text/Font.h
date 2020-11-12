@@ -1,0 +1,83 @@
+#pragma once
+
+#include <string>
+#include <unordered_map>
+#include <set>
+
+#include "FontInstance.h"
+
+#include "River/Error.h"
+
+namespace River {
+
+	class Font : public Asset {
+	public:
+
+		virtual void onLoad() override;
+		virtual void onUnload() override;
+	
+	private:
+		Font(const std::string& fontPath);
+		FontInstance* getFontInstance(unsigned int size);
+
+
+	private:
+		void* nativeFontType;
+
+		std::unordered_map<unsigned int, FontInstance*> instanceMap;
+
+		std::string path = "";
+
+		bool autoLoadSizes = false;
+
+		std::set<unsigned int> sizesToPreload;
+
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	// Creator
+
+	public:
+		class Creator {
+			friend class Font;
+
+		public:
+
+			/**
+			 * @brief	Automatically load a new Font size, if it doesn't exist and its
+			 *			being requested.
+			*/
+			Creator& enableSizeAutoLoading();
+
+			/**
+			 * @brief	Load the particular Font size, when loading the Font
+			*/
+			Creator& preloadSize(unsigned int fontSize);
+
+
+			Creator& setAssetCollection(AssetCollection*);
+
+			Font* finish();
+			
+
+		private:
+			Creator(const std::string& fontPath);
+
+		private:
+			AssetCollection* assetCollection = nullptr;
+			Font* font;
+
+		};
+
+	
+	static Creator create(const std::string& fontPath){
+		return Creator(fontPath);
+	}
+
+	friend class Creator;
+	friend class TextRenderingSystem;
+
+	};
+
+}
+
+
