@@ -150,9 +150,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\AutoFire.h" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Systems\EnemyFireSystem.h" />
+    <ClInclude Include="src\Components\BoundaryBounce.h" />
+    <ClInclude Include="src\Objects\Enemy.h" />
     <ClInclude Include="src\Systems\HealthSystem.h" />
     <ClInclude Include="src\Components\DamageLoad.h" />
     <ClInclude Include="src\Components\Health.h" />

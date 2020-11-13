@@ -9,12 +9,14 @@
 
 #include "Objects/Debris.h"
 #include "Objects/Player.h"
+#include "Objects/Enemy.h"
 
 #include "Systems/CollisionSystem.h"
 #include "Systems/TargetSystem.h"
 #include "Systems/HealthSystem.h"
 #include "Systems/MovementSystem.h"
 #include "Systems/TimedLifeSystem.h"
+#include "Systems/EnemyFireSystem.h"
 
 
 using namespace River::ECS;
@@ -64,7 +66,6 @@ public:
 
 			player = Objects::Player::create(objectDomain, mouse);
 
-
 			Objects::Debris::createMeteor(objectDomain, -100, -100, 30);
 			Objects::Debris::createMeteor(objectDomain,  100,  100, 30);
 			Objects::Debris::createMeteor(objectDomain, -100,  100, 30);
@@ -72,6 +73,8 @@ public:
 			Objects::Debris::createMeteor(objectDomain,   90,   -40, 30);
 			Objects::Debris::createMeteor(objectDomain,  -25,  150, 30);
 			Objects::Debris::createMeteor(objectDomain,    0, -100, 30);
+
+			Objects::Enemy::createUfo(objectDomain, -400, 0, 25, 3, 0.75);
 			
 		});
 
@@ -101,6 +104,7 @@ public:
 			CollisionSystem::update(objectDomain);
 			HealthSystem::update(objectDomain);
 			TimedLifeSystem::update(objectDomain);
+			EnemyFireSystem::update(objectDomain);
 			River::SpriteRenderingSystem::render(camera, *objectDomain);
 		});
 

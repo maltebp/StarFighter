@@ -10,4 +10,7 @@ struct Move : public River::ECS::Component {
 	double accelerationY = 0;
 
 	double rotationVelocity = 0;
+
+
+	bool destroyWhenOutOfBounds = false;
 };

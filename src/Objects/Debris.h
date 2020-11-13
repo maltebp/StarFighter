@@ -29,7 +29,7 @@ namespace Objects::Debris {
 		transform->height = size;
 
 		auto sprite = entity->addComponent<Sprite>();
-		sprite->texture = GlobalAssets::Textures::METEOR_BROWN_MEDIUM_1;
+		sprite->texture = GlobalAssets::Textures::METEOR_BROWN_TINY_1;
 
 		auto move = entity->addComponent<Move>();
 
@@ -59,7 +59,7 @@ namespace Objects::Debris {
 
 			float direction = rotation + (rand() % 60 - 30);
 			float duration = 1.5f + ((rand() % 200 - 100.0f) / 100.0f);
-			float size = 10.0f + (rand() % 4 - 2.0f);
+			float size = 8.0f + (rand() % 6 - 3.0f);
 
 			createMeteorShard(
 				domain,

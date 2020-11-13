@@ -32,6 +32,22 @@ namespace GlobalAssets {
 			.setAssetCollection(COLLECTION)
 			.finish();
 
+		Texture* LASER_RED = Texture::create(
+			Image::create("assets/laser_red.png")
+			.setPartiallyTransparent(true)
+			.finish(), true)
+			.setAssetCollection(COLLECTION)
+			.finish();
+
+		Texture* UFO_RED = Texture::create(
+			Image::create("assets/ufo_red.png")
+			.setPartiallyTransparent(true)
+			.finish(), true)
+			.setAssetCollection(COLLECTION)
+			.finish();
+
+
+
 		Texture* METEOR_BROWN_MEDIUM_1 = Texture::create(
 			Image::create("assets/meteor_brown_medium1.png")
 				.setPartiallyTransparent(true)	
@@ -46,6 +62,9 @@ namespace GlobalAssets {
 			.finish(), true)
 			.setAssetCollection(COLLECTION)
 			.finish();
+
+
+
 
 
 		/*const River::Texture* BACKGROUND = new River::Texture(

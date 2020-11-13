@@ -13,10 +13,7 @@ using namespace River::ECS;
 
 class TargetSystem {
 private:
-	static double getAngle(double x, double y) {
-		if( y > 0 ) return acos(x / sqrt(x * x + y * y)) * 180 / PI;
-		return 360 - acos(x / sqrt(x * x + y * y)) * 180 / PI;
-	}
+	
 
 public:
 
@@ -29,7 +26,7 @@ public:
 			auto targetTransform = target->target->getComponent<Transform>();
 
 
-			auto targetAngle = getAngle(targetTransform->x-transform->x, targetTransform->y-transform->y);
+			auto targetAngle = Util::Math::getAngle(targetTransform->x-transform->x, targetTransform->y-transform->y);
 			auto angleDifference = targetAngle - transform->rotation;
 
 			//LOG(targetAngle);

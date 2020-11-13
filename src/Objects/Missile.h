@@ -27,12 +27,10 @@ namespace Objects::Missile {
 		auto rotationRadians = DEG_TO_RADIANS(object.transform->rotation);
 		object.move->velocityX = cos(rotationRadians) * velocity;
 		object.move->velocityY = sin(rotationRadians) * velocity;
+		object.move->destroyWhenOutOfBounds = true;
 
 		auto damage = object.entity->addComponent<DamageLoad>();
 
-		auto timedLife = object.entity->addComponent<TimedLife>();
-		timedLife->duration = 10;
-		
 		return { object.entity, object.transform, object.sprite, object.move, object.collider, damage };
 	}
 

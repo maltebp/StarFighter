@@ -166,6 +166,13 @@ public:
 		
 
 		// Missiles - Enemies
+		checkCollisions(typeMap[ColliderTypes::PLAYER_MISSILE], typeMap[ColliderTypes::ENEMY], [&domain](Entity* missile, Entity* debris) {
+			LOG("Collision: PlayerMissile-Debris!");
+			debris->getComponent<Health>()->amount -= missile->getComponent<DamageLoad>()->amount;
+			missile->getComponent<BoxCollider>()->enabled = false;
+			domain->destroyEntity(missile);
+		});
+
 		// EMissiles - Player
 		// Emissiles - Debris
 
