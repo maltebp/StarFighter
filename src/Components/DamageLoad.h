@@ -3,5 +3,5 @@
 #include <River.h>
 
 struct DamageLoad : public River::ECS::Component {
-	double amount;
+	double amount = 0;
 };
