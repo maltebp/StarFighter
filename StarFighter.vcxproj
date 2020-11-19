@@ -151,9 +151,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\AutoFire.h" />
+    <ClCompile Include="src\Components\Fade.h" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Systems\FadeSystem.h" />
     <ClInclude Include="src\Systems\EnemyFireSystem.h" />
     <ClInclude Include="src\Components\BoundaryBounce.h" />
     <ClInclude Include="src\Objects\Enemy.h" />

@@ -36,7 +36,6 @@ namespace Objects::Player {
 		target->target = mouseEntity;
 		target->velocity = 6;
 
-
 		return object.entity;
 	}
 

@@ -16,12 +16,12 @@ namespace GlobalAssets {
 			Image::create("assets/player.png")
 				.setPartiallyTransparent(true)
 				.finish(), true)
-			.setAssetCollection(COLLECTION)
+			.addToCollection(COLLECTION)
 			.finish();
 
 
 		Texture* SQUARE = Texture::create(Image::create("assets/white_square.png").finish(), true)
-			.setAssetCollection(COLLECTION)
+			.addToCollection(COLLECTION)
 			.finish();
 
 
@@ -29,21 +29,21 @@ namespace GlobalAssets {
 			Image::create("assets/laser_blue.png")
 				.setPartiallyTransparent(true)
 				.finish(), true)
-			.setAssetCollection(COLLECTION)
+			.addToCollection(COLLECTION)
 			.finish();
 
 		Texture* LASER_RED = Texture::create(
 			Image::create("assets/laser_red.png")
 			.setPartiallyTransparent(true)
 			.finish(), true)
-			.setAssetCollection(COLLECTION)
+			.addToCollection(COLLECTION)
 			.finish();
 
 		Texture* UFO_RED = Texture::create(
 			Image::create("assets/ufo_red.png")
 			.setPartiallyTransparent(true)
 			.finish(), true)
-			.setAssetCollection(COLLECTION)
+			.addToCollection(COLLECTION)
 			.finish();
 
 
@@ -52,7 +52,7 @@ namespace GlobalAssets {
 			Image::create("assets/meteor_brown_medium1.png")
 				.setPartiallyTransparent(true)	
 				.finish(), true)
-			.setAssetCollection(COLLECTION)
+			.addToCollection(COLLECTION)
 			.finish();
 
 
@@ -60,7 +60,7 @@ namespace GlobalAssets {
 			Image::create("assets/meteor_brown_tiny1.png")
 			.setPartiallyTransparent(true)
 			.finish(), true)
-			.setAssetCollection(COLLECTION)
+			.addToCollection(COLLECTION)
 			.finish();
 
 
@@ -80,3 +80,4 @@ namespace GlobalAssets {
 
 
 
+ 

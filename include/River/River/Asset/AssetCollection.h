@@ -15,37 +15,34 @@ namespace River {
 	class AssetCollection {
 	public:
 
-		void load();
-
-		void unload();
-
 		/**
 		 * @brief Adds an asset to this collection
 		 *
-		 * @tparam A	Any class inherting from the River::Asset class 
 		 * @param a		The asset to add. Does nothing if the asset has already been added
-		 * @return		The same pointer which was passed this function (allows for creation of assets and adding them to the collection in one line).
 		*/
-		template <class A>
-		A* add(A* a) {
-			static_assert(std::is_convertible<A*, Asset*>::value, "Class type must inherit publicly from River::Asset");
-			
-			auto casted = (Asset*)a;
-			if( casted->collection != nullptr )
-				throw new InvalidStateException("Asset is already in a collection");
+		void add(Asset* a);
 
-			auto iterator = std::find(assets.begin(), assets.end(), a);
-			if( iterator == assets.end() )
-				assets.push_back(a);
+		/**
+		 * @brief	Loads all the Assets in this collection. While some of the Assets may already be
+		 *			loaded, this ensures they stay loaded as long as this collection is loaded.
+		 *			Logs a warning if the collection is not already loaded.
+		*/
+		void load();
 
-			casted->collection = this;
+		/**
+		 * @brief	Unloads all the Assets in this collection. Some Assets may remain loaded, if they
+		 *			have been loaded by any other collection.
+		 *			Logs a warning if the collection is not already loaded.
+		*/
+		void unload();
 
-			return a;
-		}
-
-
+		/**
+		 * @return	Whether or not this asset is loaded
+		*/
+		bool isLoaded();
 
 	private:
+		bool loaded = false;
 		std::vector<Asset*> assets;
 	};
 }

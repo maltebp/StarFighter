@@ -59,8 +59,5 @@ int main(){
 		auto level = new Level(primaryLayer);
 
 
-
-
-		//new Background(primaryLayer, Domains::domain);
 	});
 }

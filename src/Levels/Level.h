@@ -17,6 +17,7 @@
 #include "Systems/MovementSystem.h"
 #include "Systems/TimedLifeSystem.h"
 #include "Systems/EnemyFireSystem.h"
+#include "Systems/FadeSystem.h"
 
 
 using namespace River::ECS;
@@ -99,6 +100,7 @@ public:
 			/*playerMove->velocityX = (mouseX - playerTransform->x) / 25;
 			playerMove->velocityY = (mouseY - playerTransform->y) / 25;*/
 
+			FadeSystem::update(objectDomain, 0.016);
 			TargetSystem::update(objectDomain);
 			MovementSystem::update(objectDomain);
 			CollisionSystem::update(objectDomain);

@@ -10,6 +10,7 @@
 
 #include "Components/Health.h"
 #include "Components/TimedLife.h"
+#include "Components/Fade.h"
 
 
 namespace Objects::Debris {
@@ -43,6 +44,11 @@ namespace Objects::Debris {
 		auto timedLife = entity->addComponent<TimedLife>();
 		timedLife->active = true;
 		timedLife->duration = duration;
+
+		auto fade = entity->addComponent<Fade>();
+		fade->delay = duration < 1.0 ? 0 : duration - 1.0;
+		fade->duration = duration < 1.0 ? duration : 1.0;
+		fade->active = true;
 
 		return entity;
 	}
