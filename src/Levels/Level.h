@@ -75,9 +75,6 @@ public:
 			Objects::Debris::createMeteor(objectDomain,  -25,  150, 30);
 			Objects::Debris::createMeteor(objectDomain,    0, -100, 30);
 
-			Objects::Enemy::createUfo(objectDomain, -400, 0, 25, 3, 0.75);
-			Objects::Enemy::createUfo(objectDomain,  400, 0, 200, 3, 0.75);
-			
 		});
 
 
@@ -134,7 +131,14 @@ public:
 					move->accelerationY = 0;
 				}
 			}
+
+			if( e.key == River::Key::D ) {
+				if( e.action == River::KeyEvent::Action::DOWN ) {
+					Objects::Enemy::createUfo(objectDomain, Random::getInt(-600, 600), Random::getInt(-300, 300), Random::getInt(0, 359), 3, 0.75);
+				}
+			}
 		});
+
 
 		objectLayer->onMouseButtonEvent([this](River::MouseButtonEvent& e) {
 			if( e.button == River::MouseButtons::LEFT ) {
@@ -142,7 +146,6 @@ public:
 					if( playerFireCooldown <= 0 ) {
 						Objects::Player::createMissile(objectDomain, player);
 						playerFireCooldown += 0.05;
-						LOG("FIRE!");
 					}
 				}
 			}

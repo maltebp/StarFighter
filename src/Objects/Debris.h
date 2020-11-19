@@ -16,46 +16,6 @@
 
 namespace Objects::Debris {
 
-
-	/**
-	 * @brief	Constructs a small meteor on a particular position moving in a direction with a timed life. The shard has no collision
-	*/
-	/*inline Entity* createMeteorShard(Domain* domain, double x, double y, double size, double direction, double duration) {
-
-		auto entity = domain->createEntity();
-
-		auto transform = entity->addComponent<Transform>();
-		transform->x = x;
-		transform->y = y;
-		transform->width = size;
-		transform->height = size;
-
-		auto sprite = entity->addComponent<Sprite>();
-		sprite->texture = GlobalAssets::Textures::METEOR_BROWN_TINY_1;
-
-		auto move = entity->addComponent<Move>();
-
-		auto rotationRadians = DEG_TO_RADIANS(direction);
-		move->velocityX = cos(rotationRadians) * 1 * duration;
-		move->velocityY = sin(rotationRadians) * 1 * duration;
-
-		move->resistance = 0.020;
-		move->rotationVelocity = 1.5;
-
-		auto timedLife = entity->addComponent<TimedLife>();
-		timedLife->active = true;
-		timedLife->duration = duration;
-
-		auto fade = entity->addComponent<Fade>();
-		double fadeDuration = 0.5;
-		fade->delay = duration < fadeDuration ? 0 : duration - fadeDuration;
-		fade->duration = duration < fadeDuration ? duration : fadeDuration;
-		fade->active = true;
-
-		return entity;
-	}*/
-
-
 	inline void createMeteorExplosion(Domain* domain, double x, double y) {
 		Particle::emit(
 			domain,

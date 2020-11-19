@@ -44,11 +44,11 @@ namespace Objects::Effects {
 			GlobalAssets::Textures::SHIP_DEBRIS,
 			x, y,		// Position
 			3, 4,		// Count
-			15, 25,		// Size
-			2.0, 2.5,	// Velocity
+			10, 15,		// Size
+			3.0, 3.0,	// Velocity
 			1.5, 2.5,	// Rotation velocity
 			0, 360,		// Direction
-			1.0, 1.5	// Duration
+			0.50, 0.75	// Duration
 		);
 
 		createExplosion(domain, x, y, size);

@@ -29,9 +29,6 @@ public:
 			auto targetAngle = Util::Math::getAngle(targetTransform->x-transform->x, targetTransform->y-transform->y);
 			auto angleDifference = targetAngle - transform->rotation;
 
-			//LOG(targetAngle);
-
-
 			auto direction = angleDifference > 0 ? 1 : -1;
 
 			auto absoluteDifference = angleDifference * direction;
@@ -39,14 +36,11 @@ public:
 			if( absoluteDifference > 180 )
 				direction *= -1;
 
-
-
 			auto angleMovement = (target->velocity > absoluteDifference ? absoluteDifference : target->velocity) * direction;
 
 			transform->rotation += angleMovement;
 
-			// Do "double" modolu
-			transform->rotation = ((int)transform->rotation) % 360;
+			transform->rotation = fmod(transform->rotation, 360);
 			if( transform->rotation < 0 )
 				transform->rotation += 360;
 		});
