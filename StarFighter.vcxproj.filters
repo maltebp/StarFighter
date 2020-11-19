@@ -110,5 +110,8 @@
     <ClInclude Include="src\Objects\Effects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Objects\Text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
 #include "Objects/Debris.h"
 #include "Objects/Player.h"
 #include "Objects/Enemy.h"
+#include "Objects/Text.h"
 
 #include "Systems/CollisionSystem.h"
 #include "Systems/TargetSystem.h"
@@ -67,6 +68,8 @@ public:
 
 			player = Objects::Player::create(objectDomain, mouse);
 
+			Objects::Texts::create(objectDomain, "Hello World!", 0, 0);
+
 			Objects::Debris::createMeteor(objectDomain, -100, -100, 30);
 			Objects::Debris::createMeteor(objectDomain,  100,  100, 30);
 			Objects::Debris::createMeteor(objectDomain, -100,  100, 30);
@@ -107,6 +110,7 @@ public:
 			EnemyFireSystem::update(objectDomain);
 			River::SpriteAnimationSystem::update(objectDomain, 0.016);
 			River::SpriteRenderingSystem::render(objectDomain, camera);
+			River::TextRenderingSystem::render(objectDomain, camera);
 		});
 
 		objectLayer->onMouseMoveEvent([this](River::MouseMoveEvent& e) {

@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="src\Objects\Effects.h" />
     <ClInclude Include="src\Objects\Particle.h" />
+    <ClInclude Include="src\Objects\Text.h" />
     <ClInclude Include="src\Systems\FadeSystem.h" />
     <ClInclude Include="src\Systems\EnemyFireSystem.h" />
     <ClInclude Include="src\Components\BoundaryBounce.h" />

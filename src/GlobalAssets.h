@@ -2,6 +2,7 @@
 
 #include <River.h>
 
+using River::Font;
 using River::TextureAnimation;
 using River::Texture;
 using River::Image;
@@ -10,6 +11,14 @@ namespace GlobalAssets {
 
 	River::AssetCollection* COLLECTION = new River::AssetCollection();
 
+	namespace Fonts {
+
+		Font* PRIMARY = Font::create("assets/fonts/Righteous-Regular.ttf")
+			.addToCollection(COLLECTION)
+			.enableSizeAutoLoading()
+			.finish();
+
+	}
 
 	namespace Textures {
 
@@ -71,15 +80,6 @@ namespace GlobalAssets {
 			.finish(), true)
 			.addToCollection(COLLECTION)
 			.finish();
-
-
-
-
-
-		/*const River::Texture* BACKGROUND = new River::Texture(
-			"assets/black_background.png", false, 0, 0, 0, 0
-		);*/
-
 	}
 
 
