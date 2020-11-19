@@ -7,6 +7,7 @@
 
 #include "GlobalAssets.h"
 #include "Objects/Object.h"
+#include "Objects/Particle.h"
 
 #include "Components/Health.h"
 #include "Components/TimedLife.h"
@@ -19,7 +20,7 @@ namespace Objects::Debris {
 	/**
 	 * @brief	Constructs a small meteor on a particular position moving in a direction with a timed life. The shard has no collision
 	*/
-	inline Entity* createMeteorShard(Domain* domain, double x, double y, double size, double direction, double duration) {
+	/*inline Entity* createMeteorShard(Domain* domain, double x, double y, double size, double direction, double duration) {
 
 		auto entity = domain->createEntity();
 
@@ -46,39 +47,27 @@ namespace Objects::Debris {
 		timedLife->duration = duration;
 
 		auto fade = entity->addComponent<Fade>();
-		fade->delay = duration < 1.0 ? 0 : duration - 1.0;
-		fade->duration = duration < 1.0 ? duration : 1.0;
+		double fadeDuration = 0.5;
+		fade->delay = duration < fadeDuration ? 0 : duration - fadeDuration;
+		fade->duration = duration < fadeDuration ? duration : fadeDuration;
 		fade->active = true;
 
 		return entity;
-	}
+	}*/
 
 
 	inline void createMeteorExplosion(Domain* domain, double x, double y) {
-
-		unsigned int numShards = 7;
-		float rotationPerShard = 360.0f / 7.0f;
-
-		float rotation = 0;
-
-		for( unsigned int i = 0; i < numShards; i++ ) {
-
-			float direction = rotation + (rand() % 60 - 30);
-			float duration = 1.5f + ((rand() % 200 - 100.0f) / 100.0f);
-			float size = 8.0f + (rand() % 6 - 3.0f);
-
-			createMeteorShard(
-				domain,
-				x, y,
-				size,
-				direction,
-				duration
-			);
-
-			rotation += rotationPerShard;
-		}
-
-
+		Particle::emit(
+			domain,
+			GlobalAssets::Textures::METEOR_BROWN_TINY_1,
+			x, y,		// Position
+			5, 9,		// Count
+			5, 12,		// Size
+			0.5, 1.5,	// Velocity
+			0.5, 1.5,	// Rotation velocity
+			0, 360,		// Direction
+			1, 2		// Duration
+		);
 	}
 
 

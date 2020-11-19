@@ -19,8 +19,8 @@ namespace Objects::Player {
 
 		auto object = Objects::create(domain);
 
-		object.transform->height = 50;
 		object.transform->width = 50 * GlobalAssets::Textures::PLAYER->getAspectRatio();
+		object.transform->height = 50;
 		object.transform->depth = 10;
 
 		object.move->resistance = 0.05;

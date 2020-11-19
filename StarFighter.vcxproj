@@ -155,6 +155,8 @@
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Objects\Effects.h" />
+    <ClInclude Include="src\Objects\Particle.h" />
     <ClInclude Include="src\Systems\FadeSystem.h" />
     <ClInclude Include="src\Systems\EnemyFireSystem.h" />
     <ClInclude Include="src\Components\BoundaryBounce.h" />
@@ -180,6 +182,7 @@
     <ClInclude Include="src\Systems\TimedLifeSystem.h" />
     <ClInclude Include="src\Utility\Math.h" />
     <ClInclude Include="src\Components\TimedLife.h" />
+    <ClInclude Include="src\Utility\Random.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

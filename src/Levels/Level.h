@@ -76,6 +76,7 @@ public:
 			Objects::Debris::createMeteor(objectDomain,    0, -100, 30);
 
 			Objects::Enemy::createUfo(objectDomain, -400, 0, 25, 3, 0.75);
+			Objects::Enemy::createUfo(objectDomain,  400, 0, 200, 3, 0.75);
 			
 		});
 
@@ -107,7 +108,8 @@ public:
 			HealthSystem::update(objectDomain);
 			TimedLifeSystem::update(objectDomain);
 			EnemyFireSystem::update(objectDomain);
-			River::SpriteRenderingSystem::render(camera, *objectDomain);
+			River::SpriteAnimationSystem::update(objectDomain, 0.016);
+			River::SpriteRenderingSystem::render(objectDomain, camera);
 		});
 
 		objectLayer->onMouseMoveEvent([this](River::MouseMoveEvent& e) {

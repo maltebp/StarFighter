@@ -7,6 +7,7 @@
 #include "GlobalAssets.h"
 
 #include "Objects/Missile.h"
+#include "Objects/Effects.h"
 
 #include "Components/Health.h"
 #include "Components/Move.h"
@@ -49,7 +50,11 @@ namespace Objects::Enemy {
 
 
 		auto health = entity->addComponent<Health>();
-		health->amount = 500;
+		health->amount = 250;
+		health->onDeathCallback = [domain](Entity* e) {
+			auto transform = e->getComponent<Transform>();
+			Effects::createShipExplosion(domain, transform->x, transform->y, 100);
+		};
 
 		auto autoFire = entity->addComponent<AutoFire>();
 		autoFire->frequency = 0.25;

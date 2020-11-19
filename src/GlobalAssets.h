@@ -2,6 +2,7 @@
 
 #include <River.h>
 
+using River::TextureAnimation;
 using River::Texture;
 using River::Image;
 
@@ -64,6 +65,14 @@ namespace GlobalAssets {
 			.finish();
 
 
+		Texture* SHIP_DEBRIS = Texture::create(
+			Image::create("assets/ship_debris.png")
+			.setPartiallyTransparent(true)
+			.finish(), true)
+			.addToCollection(COLLECTION)
+			.finish();
+
+
 
 
 
@@ -71,6 +80,26 @@ namespace GlobalAssets {
 			"assets/black_background.png", false, 0, 0, 0, 0
 		);*/
 
+	}
+
+
+
+	namespace Animations {
+
+		TextureAnimation* EXPLOSION = TextureAnimation::create(
+				Texture::create(Image::create("assets/explosion/1.png").setPartiallyTransparent(true).finish(), true).finish(),
+				Texture::create(Image::create("assets/explosion/2.png").setPartiallyTransparent(true).finish(), true).finish(),
+				Texture::create(Image::create("assets/explosion/3.png").setPartiallyTransparent(true).finish(), true).finish(),
+				Texture::create(Image::create("assets/explosion/4.png").setPartiallyTransparent(true).finish(), true).finish(),
+				Texture::create(Image::create("assets/explosion/5.png").setPartiallyTransparent(true).finish(), true).finish(),
+				Texture::create(Image::create("assets/explosion/6.png").setPartiallyTransparent(true).finish(), true).finish(),
+				Texture::create(Image::create("assets/explosion/7.png").setPartiallyTransparent(true).finish(), true).finish(),
+				Texture::create(Image::create("assets/explosion/8.png").setPartiallyTransparent(true).finish(), true).finish(),
+				Texture::create(Image::create("assets/explosion/9.png").setPartiallyTransparent(true).finish(), true).finish()
+			)
+			.addToCollection(COLLECTION)
+			.setDuration(0.35)
+			.finish();
 	}
 
 }
