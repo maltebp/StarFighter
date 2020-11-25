@@ -24,6 +24,9 @@
     <ClCompile Include="src\Components\Fade.h">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MoveTarget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Objects\Player.h">
@@ -111,6 +114,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Objects\Text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveTarget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components\HomingMove.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

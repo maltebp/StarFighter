@@ -62,4 +62,10 @@ namespace Objects::Player {
 		return object.entity;
 	}
 
+
+	inline void createRocket(Domain* domain, Entity* player) {
+		
+		auto rocket = Objects::Missile::
+
+	}
 }

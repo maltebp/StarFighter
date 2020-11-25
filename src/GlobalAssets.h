@@ -80,6 +80,14 @@ namespace GlobalAssets {
 			.finish(), true)
 			.addToCollection(COLLECTION)
 			.finish();
+
+		Texture* ROCKET_BLUE = Texture::create(
+			Image::create("assets/rocket_blue.png")
+			.setPartiallyTransparent(true)
+			.finish(), true)
+			.addToCollection(COLLECTION)
+			.finish();
+	}
 	}
 
 

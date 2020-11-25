@@ -2,6 +2,8 @@
 
 #include "Utility/Math.h"
 #include "Objects/Object.h"
+
+#include "Components/Move.h"
 #include "Components/DamageLoad.h"
 #include "Components/TimedLife.h"
 
@@ -33,6 +35,7 @@ namespace Objects::Missile {
 
 		return { object.entity, object.transform, object.sprite, object.move, object.collider, damage };
 	}
+
 
 
 }

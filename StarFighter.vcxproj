@@ -150,11 +150,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MoveTarget.cpp" />
     <ClCompile Include="src\Components\AutoFire.h" />
     <ClCompile Include="src\Components\Fade.h" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MoveTarget.h" />
+    <ClInclude Include="src\Components\HomingMove.h" />
     <ClInclude Include="src\Objects\Effects.h" />
     <ClInclude Include="src\Objects\Particle.h" />
     <ClInclude Include="src\Objects\Text.h" />
