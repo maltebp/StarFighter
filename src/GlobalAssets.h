@@ -88,7 +88,6 @@ namespace GlobalAssets {
 			.addToCollection(COLLECTION)
 			.finish();
 	}
-	}
 
 
 

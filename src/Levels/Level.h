@@ -68,7 +68,7 @@ public:
 
 			player = Objects::Player::create(objectDomain, mouse);
 
-			Objects::Texts::create(objectDomain, "Hello World!", 0, 0);
+			//Objects::Texts::create(objectDomain, "Hello World!", 0, 0);
 
 			Objects::Debris::createMeteor(objectDomain, -100, -100, 30);
 			Objects::Debris::createMeteor(objectDomain,  100,  100, 30);
