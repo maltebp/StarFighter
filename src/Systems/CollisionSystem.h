@@ -175,7 +175,6 @@ public:
 		});
 
 		// Player - Collectibles
-		// Player - Enemies
 
 		// Player Missiles - Debris
 		checkCollisions(typeMap[ColliderTypes::PLAYER_MISSILE], typeMap[ColliderTypes::DEBRIS], [&domain](Entity* missile, Entity* debris) {
@@ -219,8 +218,38 @@ public:
 		});
 
 	
-		// Emissiles - Debris
-		
+		// Enemy Missiles - Debris
+		checkCollisions(typeMap[ColliderTypes::ENEMY_MISSILE], typeMap[ColliderTypes::DEBRIS], [&domain](Entity* missile, Entity* debris) {
+			auto missileTransform = missile->getComponent<Transform>();
+			debris->getComponent<Health>()->amount -= missile->getComponent<DamageLoad>()->amount;
+			missile->getComponent<BoxCollider>()->enabled = false;
+			domain->destroyEntity(missile);
+			Objects::Effects::createExplosion(domain, missileTransform->x, missileTransform->y, 20);
+		});
+
+
+		// Player - Impenetrable
+		checkCollisions(typeMap[ColliderTypes::PLAYER], typeMap[ColliderTypes::IMPENETRABLE], [&domain](Entity* player, Entity* impenetrable) {
+			player->getComponent<Health>()->kill();
+		});
+
+		//// Player Missile - Impenetrable
+		//checkCollisions(typeMap[ColliderTypes::PLAYER_MISSILE], typeMap[ColliderTypes::IMPENETRABLE], [&domain](Entity* missile, Entity* impenetrable) {
+		//	auto missileTransform = missile->getComponent<Transform>();
+		//	Objects::Effects::createExplosion(domain, missileTransform->x, missileTransform->y, 20);
+		//});
+		//
+		//// Enemy Missile - Impenetrable
+		//checkCollisions(typeMap[ColliderTypes::ENEMY_MISSILE], typeMap[ColliderTypes::IMPENETRABLE], [&domain](Entity* missile, Entity* impenetrable) {
+		//	auto missileTransform = missile->getComponent<Transform>();
+		//	Objects::Effects::createExplosion(domain, missileTransform->x, missileTransform->y, 20);
+		//});
+
+		// Rocket - Impenetrable
+		checkCollisions(typeMap[ColliderTypes::ROCKET], typeMap[ColliderTypes::IMPENETRABLE], [&domain](Entity* rocket, Entity* impenetrable) {
+			auto rocketTransform = rocket->getComponent<Transform>();
+			Objects::Effects::createExplosion(domain, rocketTransform->x, rocketTransform->y, 20);
+		});
 	}
 
 };

@@ -24,7 +24,27 @@
 using namespace River::ECS;
 
 
-Entity* createMouseBlock(Domain* domain) {
+// Used to create invisible borders around the map, for the player and missiles to
+// crash in to
+inline Entity* createBoundary(Domain* domain, double width, double height, double centerX, double centerY) {
+	auto entity = domain->createEntity();
+
+	auto transform = entity->addComponent<Transform>();
+	transform->width = width;
+	transform->height = height;
+	transform->x = centerX;
+	transform->y = centerY;
+
+	auto collider = entity->addComponent<BoxCollider>();
+	collider->width = width;
+	collider->height = height;
+	collider->type = ColliderTypes::IMPENETRABLE;
+	
+	return entity;
+}
+
+
+inline Entity* createMouseBlock(Domain* domain) {
 	auto entity = domain->createEntity();
 	auto transform = entity->addComponent<Transform>();
 	transform->width = 50;
@@ -66,7 +86,9 @@ public:
 				transform->y = 0;
 			}
 
-			player = Objects::Player::create(objectDomain, mouse, [](auto player){});
+			player = Objects::Player::create(objectDomain, mouse, [this](auto player){
+				this->controlsEnabled = false; 
+			});
 
 			//Objects::Texts::create(objectDomain, "Hello World!", 0, 0);
 
@@ -78,11 +100,17 @@ public:
 			Objects::Debris::createMeteor(objectDomain,  -25,  150, 30);
 			Objects::Debris::createMeteor(objectDomain,    0, -100, 30);
 
+			// Create impenetrable boundaries
+			createBoundary(objectDomain, 2000, 2000, -1000 - 1280/2.0,				 0 ); // Left
+			createBoundary(objectDomain, 2000, 2000,  1000 + 1280/2.0,				 0 ); // Right
+			createBoundary(objectDomain, 2000, 2000,				0, -1000 - 720/2.0 ); // Top
+			createBoundary(objectDomain, 2000, 2000,				0,  1000 + 720/2.0 ); // Bottom
 		});
 
 
 		objectLayer->onUpdate([this]() {
 			objectDomain->clean();   
+
 
 			if( playerFireCooldown > 0 )
 				playerFireCooldown -= 0.01;
@@ -109,6 +137,7 @@ public:
 
 
 		objectLayer->onKeyEvent([this](River::KeyEvent& e) {
+			if( !controlsEnabled ) return;
 			if( e.key == River::Key::SPACE ) {
 				if( e.action == River::KeyEvent::Action::PRESSED ) {
 					auto move = player->getComponent<Move>();
@@ -133,6 +162,8 @@ public:
 
 
 		objectLayer->onMouseButtonEvent([this](River::MouseButtonEvent& e) {
+			if( !controlsEnabled ) return;
+
 			if( e.button == River::MouseButtons::LEFT ) {
 				if( e.action == River::MouseButtonAction::PRESSED ) {
 					if( playerFireCooldown <= 0 ) {
@@ -168,5 +199,7 @@ private:
 	Entity* mouse;
 
 	River::Camera* camera;
+
+	bool controlsEnabled = true;
 
 };
