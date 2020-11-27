@@ -20,7 +20,6 @@ using namespace River::ECS;
 
 namespace Objects::Enemy {
 
-
 	inline Entity* createUfo(Domain* domain, double x, double y, double direction, double velocity, double rotationVelocity) {
 
 		auto entity = domain->createEntity();
@@ -48,12 +47,13 @@ namespace Objects::Enemy {
 		collider->height = 40;
 		collider->type = ColliderTypes::ENEMY;
 
-
 		auto health = entity->addComponent<Health>();
 		health->amount = 250;
+		health->type = HealthType::ENEMY;
 		health->onDeathCallback = [domain](Entity* e) {
 			auto transform = e->getComponent<Transform>();
 			Effects::createShipExplosion(domain, transform->x, transform->y, 100);
+			return true;
 		};
 
 		auto autoFire = entity->addComponent<AutoFire>();

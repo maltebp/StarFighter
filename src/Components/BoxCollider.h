@@ -44,6 +44,7 @@ namespace ColliderTypes {
 	const ColliderType	ENEMY			= ColliderType::define();
 	const ColliderType	ENEMY_MISSILE   = ColliderType::define();
 	const ColliderType	DEBRIS			= ColliderType::define();
+	const ColliderType	ROCKET			= ColliderType::define();
 }
 
  // Hash for ColliderType

@@ -150,17 +150,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MoveTarget.cpp" />
     <ClCompile Include="src\Components\AutoFire.h" />
     <ClCompile Include="src\Components\Fade.h" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MoveTarget.h" />
     <ClInclude Include="src\Components\HomingMove.h" />
+    <ClInclude Include="src\Components\TargetCollider.h" />
     <ClInclude Include="src\Objects\Effects.h" />
     <ClInclude Include="src\Objects\Particle.h" />
     <ClInclude Include="src\Objects\Text.h" />
+    <ClInclude Include="src\Settings.h" />
     <ClInclude Include="src\Systems\FadeSystem.h" />
     <ClInclude Include="src\Systems\EnemyFireSystem.h" />
     <ClInclude Include="src\Components\BoundaryBounce.h" />
@@ -183,10 +183,12 @@
     <ClInclude Include="src\Objects\Player.h" />
     <ClInclude Include="src\Systems\CollisionSystem.h" />
     <ClInclude Include="src\Systems\MovementSystem.h" />
-    <ClInclude Include="src\Systems\TimedLifeSystem.h" />
+    <ClInclude Include="src\Systems\TimerSystem.h" />
     <ClInclude Include="src\Utility\Math.h" />
     <ClInclude Include="src\Components\TimedLife.h" />
     <ClInclude Include="src\Utility\Random.h" />
+    <ClInclude Include="src\Components\Timer.h" />
+    <ClInclude Include="src\Utility\ECS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

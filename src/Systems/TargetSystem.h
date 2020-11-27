@@ -20,13 +20,24 @@ public:
 	static void update(Domain* domain) {
 
 
+		// Rotate to target
 		domain->forMatchingEntities<Transform, Target>([](Entity* entity, Transform* transform, Target* target) {
-			if( target->target == nullptr ) return;
+			if( !target->active ) return;
 
-			auto targetTransform = target->target->getComponent<Transform>();
+			// Determine target x, y (point or entity)
+			double targetX, targetY;
+			if( target->targetEntity != nullptr ) {
+				// Note: We don't check if the target entity is valid (it may have been removed from the domain)
+				auto targetTransform = target->targetEntity->getComponent<Transform>();
+				targetX = targetTransform->x;
+				targetY = targetTransform->y;
+				// Not testing for nullptr and throwing exception, because it will crash anyway
+			} else {
+				targetX = target->targetX;
+				targetY = target->targetY;
+			}
 
-
-			auto targetAngle = Util::Math::getAngle(targetTransform->x-transform->x, targetTransform->y-transform->y);
+			auto targetAngle = Util::Math::getAngle(targetX-transform->x, targetY-transform->y);
 			auto angleDifference = targetAngle - transform->rotation;
 
 			auto direction = angleDifference > 0 ? 1 : -1;

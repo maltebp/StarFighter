@@ -4,10 +4,15 @@
 #include <unordered_map>
 
 #include <River.h>
+
+#include "Utility/Math.h"
+
 #include "Log.h"
 #include "Components/Health.h"
 #include "Components/DamageLoad.h"
 #include "Components/BoxCollider.h"
+#include "Components/Target.h"
+#include "Components/TargetCollider.h"
 
 #define PI 3.14159265
 
@@ -93,9 +98,11 @@ class CollisionSystem {
 
 public:
 
+
+	
+
+
 	static void checkCollisions(std::vector<CollisionEntity>& sources, std::vector<CollisionEntity>& targets, std::function<void (Entity* source, Entity*target)> callback) {
-
-
 		
 		for( auto source : sources ) {
 			for( auto target : targets ) {
@@ -106,8 +113,6 @@ public:
 				double distance = sqrt(xDiff*xDiff + yDiff*yDiff);
 				if( distance > source.distance + target.distance )
 					continue;
-
-				//LOG("Distance ok!");
 
 				CollisionData sourceData = {
 					source.collider->width/2.0, source.collider->height/2.0,
@@ -135,6 +140,15 @@ public:
 		for( auto& pair : typeMap ) {
 			pair.second.clear();
 		} 
+
+		// Testing simple target collider first
+		domain->forMatchingEntities<Transform, Target, TargetCollider>([](Entity* e, Transform* transform, Target* target, TargetCollider* collider) {
+			auto currentDistance = Util::Math::vectorLength(target->targetX - transform->x, target->targetY - transform->y);
+			if( collider->distance > currentDistance ) {
+				collider->onCollision(e);
+			}
+		});
+
 
 		domain->forMatchingEntities<Transform, BoxCollider>([](Entity* e, Transform* transform, BoxCollider* collider) {
 			if( !collider->enabled ) return;
@@ -171,6 +185,17 @@ public:
 			debris->getComponent<Health>()->amount -= missile->getComponent<DamageLoad>()->amount;
 			missile->getComponent<BoxCollider>()->enabled = false;
 			domain->destroyEntity(missile);
+		});
+
+
+		// Rockets (both player and enemies, as rocket logic is bound to the entity)
+		checkCollisions(typeMap[ColliderTypes::ROCKET], typeMap[ColliderTypes::DEBRIS], [domain](Entity* rocket, Entity* debris){
+			rocket->getComponent<Health>()->kill();
+		});
+
+		// Rockets (both player and enemies, as rocket logic is bound to the entity)
+		checkCollisions(typeMap[ColliderTypes::ROCKET], typeMap[ColliderTypes::ENEMY], [domain](Entity* rocket, Entity* debris) {
+			rocket->getComponent<Health>()->kill();
 		});
 
 		// EMissiles - Player

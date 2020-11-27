@@ -14,11 +14,13 @@ public:
 	static void update(Domain* domain) {
 
 		domain->forMatchingEntities<Health>([&domain](Entity* entity, Health* health) {
-		
+			
 			if( health->amount <= 0 ) {
+				bool destroy = true;
 				if( health->onDeathCallback != nullptr )
-					health->onDeathCallback(entity);
-				domain->destroyEntity(entity);
+					destroy = health->onDeathCallback(entity);
+				if( destroy )
+					domain->destroyEntity(entity);
 			}
 		
 			// TODO: Update from Level

@@ -49,12 +49,12 @@ namespace Objects::Debris {
 
 		auto health = object.entity->addComponent<Health>();
 		health->amount = 50;
-		health->invulnerable = false;
+		health->type = HealthType::DEBRIS;
 		health->onDeathCallback = [domain](Entity* meteor) {
 			auto transform = meteor->getComponent<Transform>();
 			createMeteorExplosion(domain, transform->x, transform->y);
+			return true;
 		};
-
 
 		return object.entity;
 	}

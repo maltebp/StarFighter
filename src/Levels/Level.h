@@ -16,7 +16,7 @@
 #include "Systems/TargetSystem.h"
 #include "Systems/HealthSystem.h"
 #include "Systems/MovementSystem.h"
-#include "Systems/TimedLifeSystem.h"
+#include "Systems/TimerSystem.h"
 #include "Systems/EnemyFireSystem.h"
 #include "Systems/FadeSystem.h"
 
@@ -87,26 +87,14 @@ public:
 			if( playerFireCooldown > 0 )
 				playerFireCooldown -= 0.01;
 
-			
-
 			LOG("FPS: " << River::Game::getFps() << "  Entities: " << objectDomain->getNumEntities());
-
-			//LOG(getAngle(mouseX, mouseY));
-
-
-			//LOG("Radians: " << rotationRadians);
-			//LOG("Degrees: " << playerSprite->rotation);
-
-			auto playerMove = player->getComponent<Move>();
-			/*playerMove->velocityX = (mouseX - playerTransform->x) / 25;
-			playerMove->velocityY = (mouseY - playerTransform->y) / 25;*/
 
 			FadeSystem::update(objectDomain, 0.016);
 			TargetSystem::update(objectDomain);
 			MovementSystem::update(objectDomain);
 			CollisionSystem::update(objectDomain);
 			HealthSystem::update(objectDomain);
-			TimedLifeSystem::update(objectDomain);
+			TimerSystem::update(objectDomain, 0.016);
 			EnemyFireSystem::update(objectDomain);
 			River::SpriteAnimationSystem::update(objectDomain, 0.016);
 			River::SpriteRenderingSystem::render(objectDomain, camera);
@@ -151,6 +139,12 @@ public:
 						Objects::Player::createMissile(objectDomain, player);
 						playerFireCooldown += 0.05;
 					}
+				}
+			}
+			if( e.button == River::MouseButtons::RIGHT ) {
+				if( e.action == River::MouseButtonAction::DOWN ) {
+					auto mouseTransform = mouse->getComponent<Transform>();
+					Objects::Player::createRocket(objectDomain, player, mouseTransform->x, mouseTransform->y);
 				}
 			}
 		});
