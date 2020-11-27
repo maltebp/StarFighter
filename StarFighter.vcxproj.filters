@@ -29,9 +29,6 @@
     <ClInclude Include="src\Objects\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Domains.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Levels\Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -126,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\General.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="src\Components\HomingMove.h" />
     <ClInclude Include="src\Components\TargetCollider.h" />
+    <ClInclude Include="src\General.h" />
     <ClInclude Include="src\Objects\Effects.h" />
     <ClInclude Include="src\Objects\Particle.h" />
     <ClInclude Include="src\Objects\Text.h" />
@@ -178,7 +179,6 @@
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\GlobalAssets.h" />
     <ClInclude Include="src\Levels\Background.h" />
-    <ClInclude Include="src\Domains.h" />
     <ClInclude Include="src\Levels\Level.h" />
     <ClInclude Include="src\Objects\Player.h" />
     <ClInclude Include="src\Systems\CollisionSystem.h" />

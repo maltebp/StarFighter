@@ -5,6 +5,8 @@
 
 #include <River.h>
 
+#include "Objects/Effects.h"
+
 #include "Utility/Math.h"
 
 #include "Log.h"
@@ -160,8 +162,16 @@ public:
 		// Check collisions
 
 		// Player - Debris
-		checkCollisions(typeMap[ColliderTypes::PLAYER], typeMap[ColliderTypes::DEBRIS], [](Entity* player, Entity* debris) {
-			LOG("Collision: Player-Debris!");
+		checkCollisions(typeMap[ColliderTypes::PLAYER], typeMap[ColliderTypes::DEBRIS], [domain](Entity* player, Entity* debris) {
+			auto debrisHealth = debris->getComponent<Health>();
+			
+			if( debrisHealth->amount > 0.0 ) {
+				auto playerHealth = player->getComponent<Health>();
+				auto debrisTransform = debris->getComponent<Transform>();
+				playerHealth->amount -= debrisHealth->amount;
+				debrisHealth->kill();
+				Objects::Effects::createExplosion(domain, debrisTransform->x, debrisTransform->y, 40);
+			}
 		});
 
 		// Player - Collectibles
@@ -169,22 +179,21 @@ public:
 
 		// Player Missiles - Debris
 		checkCollisions(typeMap[ColliderTypes::PLAYER_MISSILE], typeMap[ColliderTypes::DEBRIS], [&domain](Entity* missile, Entity* debris) {
-			LOG("Collision: PlayerMissile-Debris!");
+			auto missileTransform = missile->getComponent<Transform>();
 			debris->getComponent<Health>()->amount -= missile->getComponent<DamageLoad>()->amount;
 			missile->getComponent<BoxCollider>()->enabled = false;
 			domain->destroyEntity(missile);
+			Objects::Effects::createExplosion(domain, missileTransform->x, missileTransform->y, 20);
 		});
-
-
-
 		
 
 		// Missiles - Enemies
-		checkCollisions(typeMap[ColliderTypes::PLAYER_MISSILE], typeMap[ColliderTypes::ENEMY], [&domain](Entity* missile, Entity* debris) {
-			LOG("Collision: PlayerMissile-Debris!");
-			debris->getComponent<Health>()->amount -= missile->getComponent<DamageLoad>()->amount;
+		checkCollisions(typeMap[ColliderTypes::PLAYER_MISSILE], typeMap[ColliderTypes::ENEMY], [&domain](Entity* missile, Entity* enemy) {
+			auto missileTransform = missile->getComponent<Transform>();
+			enemy->getComponent<Health>()->amount -= missile->getComponent<DamageLoad>()->amount;
 			missile->getComponent<BoxCollider>()->enabled = false;
 			domain->destroyEntity(missile);
+			Objects::Effects::createExplosion(domain, missileTransform->x, missileTransform->y, 20);
 		});
 
 
@@ -193,16 +202,25 @@ public:
 			rocket->getComponent<Health>()->kill();
 		});
 
+
 		// Rockets (both player and enemies, as rocket logic is bound to the entity)
 		checkCollisions(typeMap[ColliderTypes::ROCKET], typeMap[ColliderTypes::ENEMY], [domain](Entity* rocket, Entity* debris) {
 			rocket->getComponent<Health>()->kill();
 		});
 
-		// EMissiles - Player
+
+		// Enemy Missiles - Player
+		checkCollisions(typeMap[ColliderTypes::ENEMY_MISSILE], typeMap[ColliderTypes::PLAYER], [&domain](Entity* missile, Entity* player) {
+			auto missileTransform = missile->getComponent<Transform>();
+			player->getComponent<Health>()->amount -= missile->getComponent<DamageLoad>()->amount;
+			missile->getComponent<BoxCollider>()->enabled = false;
+			domain->destroyEntity(missile);
+			Objects::Effects::createExplosion(domain, missileTransform->x, missileTransform->y, 20);
+		});
+
+	
 		// Emissiles - Debris
-
-
-
+		
 	}
 
 };

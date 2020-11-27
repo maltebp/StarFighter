@@ -1,10 +1,9 @@
 #pragma once
 
-#include <River.h>
+#include "General.h"
 
 #include "Utility/ECS.h"
 
-#include "GlobalAssets.h"
 
 #include "Components/HomingMove.h"
 #include "Components/BoxCollider.h"
@@ -14,7 +13,6 @@
 
 #include "Objects/Effects.h"
 #include "Objects/Missile.h"
-#include "Domains.h"
 
 
 using namespace River::ECS;
@@ -22,31 +20,45 @@ using namespace River::ECS;
 
 namespace Objects::Player {
 
-	Entity* create(Domain* domain, Entity* mouseEntity) {
 
-		auto object = Objects::create(domain);
+	// Constructs a player entity
+	Entity* create(Domain* domain, Entity* mouseEntity, std::function<void(Entity* player)> onDeath) {
+		auto player = domain->createEntity();
 
-		object.transform->width = 50 * GlobalAssets::Textures::PLAYER->getAspectRatio();
-		object.transform->height = 50;
-		object.transform->depth = 10;
+		auto transform = player->addComponent<Transform>();
+		transform->width = 50 * GlobalAssets::Textures::PLAYER->getAspectRatio();
+		transform->height = 50;
+		transform->depth = 10;
 
-		object.move->resistance = 0.05;
+		auto sprite = player->addComponent<Sprite>();
+		sprite->texture = GlobalAssets::Textures::PLAYER;
+		sprite->rotationOffset = 90;
 
-		object.sprite->rotationOffset = 90;
-		object.sprite->texture = GlobalAssets::Textures::PLAYER;
+		auto move = player->addComponent<Move>();
+		move->resistance = 0.05;
 
-		object.collider->width = 40;
-		object.collider->height = 40;
-		object.collider->type = ColliderTypes::PLAYER;
+		auto collider = player->addComponent<BoxCollider>();
+		collider->width = 40;
+		collider->height = 40;
+		collider->type = ColliderTypes::PLAYER;
 
-		auto target = object.entity->addComponent<Target>();
+		auto target = player->addComponent<Target>();
 		target->targetEntity = mouseEntity;
 		target->velocity = 6;
 
-		return object.entity;
+		auto health = player->addComponent<Health>();
+		health->amount = Settings::Player::HEALTH;
+		health->type = HealthType::PLAYER;
+		health->onDeathCallback = [onDeath, domain](Entity* e) {
+			auto transform = e->getComponent<Transform>();
+			Effects::createShipExplosion(domain, transform->x, transform->y, 80);
+			onDeath(e);
+			return true;
+		};
+
+
+		return player;
 	}
-
-
 
 
 	inline Entity* createMissile(Domain* domain, Entity* player) {

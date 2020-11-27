@@ -66,7 +66,7 @@ public:
 				transform->y = 0;
 			}
 
-			player = Objects::Player::create(objectDomain, mouse);
+			player = Objects::Player::create(objectDomain, mouse, [](auto player){});
 
 			//Objects::Texts::create(objectDomain, "Hello World!", 0, 0);
 

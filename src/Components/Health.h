@@ -17,7 +17,7 @@ struct Health : public River::ECS::Component {
 	HealthType type = HealthType::UNKNOWN;
 	std::function<bool (River::ECS::Entity* e) > onDeathCallback = nullptr;
 
-	void kill() {
+	inline void kill() {
 		if( !invulnerable ) amount = -1;
 	}
 };

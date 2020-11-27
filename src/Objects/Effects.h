@@ -2,6 +2,8 @@
 
 #include <River.h>
 
+#include "Particle.h"
+
 #include "GlobalAssets.h"
 
 #include "Components/TimedLife.h"
