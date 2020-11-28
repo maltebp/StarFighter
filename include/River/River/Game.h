@@ -29,8 +29,15 @@ namespace River {
 
 		static Window* getWindow();
 
+		static Layer* pushLayer() {
+			return rootLayer->pushLayer();
+		}
 
-		static Layer* pushLayer();
+		template <typename L, typename ... Args>
+		static L* pushLayer(Args ... args) {
+			return rootLayer->pushLayer<L>(args...);
+		}
+
 
 		static void clearLayers();
 
@@ -71,7 +78,7 @@ namespace River {
 		/**
 		 * @brief	An "abstract" layer in that it has no callback, only serves as a container for sub layers and will never be deleted
 		*/
-		static inline Layer* rootLayer = new Layer(nullptr);
+		static inline Layer* rootLayer = new Layer();
 
 
 

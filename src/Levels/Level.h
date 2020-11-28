@@ -65,21 +65,21 @@ inline Entity* createMouseBlock(Domain* domain) {
 }
 
 
-class Level {
+class Level : public River::Layer {
 public:
 
-	Level(River::Layer* parentLayer) {
+	Level() {
 		objectDomain = new Domain();
 		camera = new River::Camera(1280, 720);
 		camera->setPosition(0, 0, 0);
 
-		primaryLayer = parentLayer->pushLayer();
-		backgroundLayer = primaryLayer->pushLayer();
+		// Unused for now
+		backgroundLayer = pushLayer();
 
-		objectLayer = primaryLayer->pushLayer();
+		objectLayer = pushLayer();
 		objectLayer->onCreate([this]() {
 
-			{	// Create mouse entity
+			{	// Create mouzuse entity
 				mouse = objectDomain->createEntity();
 				auto transform = mouse->addComponent<Transform>();
 				transform->x = 0;

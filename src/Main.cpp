@@ -56,7 +56,8 @@ int main(){
 			if( e.key == River::Key::ESCAPE ) River::Game::exit();
 		});
 
-		auto level = new Level(primaryLayer);
+		primaryLayer->pushLayer<Level>();
+		//auto level = new Level(primaryLayer);
 
 
 	});
