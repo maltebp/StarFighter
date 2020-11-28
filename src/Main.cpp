@@ -5,12 +5,14 @@
 #include "Systems/CollisionSystem.h"
 
 #include "GlobalAssets.h"
+#include "MainMenu.h"
 #include "Levels/Level.h"
 
 
 
 
 River::Layer* primaryLayer = nullptr;
+
 
 namespace Domains {
 	River::ECS::Domain* domain;
@@ -56,7 +58,7 @@ int main(){
 			if( e.key == River::Key::ESCAPE ) River::Game::exit();
 		});
 
-		primaryLayer->pushLayer<Level>();
+		primaryLayer->pushLayer<MainMenu>();
 		//auto level = new Level(primaryLayer);
 
 

@@ -24,6 +24,9 @@
 using namespace River::ECS;
 
 
+class MainMenu;
+
+
 // Used to create invisible borders around the map, for the player and missiles to
 // crash in to
 inline Entity* createBoundary(Domain* domain, double width, double height, double centerX, double centerY) {
@@ -87,7 +90,9 @@ public:
 			}
 
 			player = Objects::Player::create(objectDomain, mouse, [this](auto player){
-				this->controlsEnabled = false; 
+				this->controlsEnabled = false;
+				getParent()->removeLayer(this);
+				getParent()->pushLayer<MainMenu>();
 			});
 
 			//Objects::Texts::create(objectDomain, "Hello World!", 0, 0);

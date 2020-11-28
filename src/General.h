@@ -5,7 +5,14 @@
 	by most.
 */
 
-#include "River.h"
+
+#include <River.h>
 #include "Log.h"
 #include "Settings.h"
 #include "GlobalAssets.h"
+
+
+using River::Color;
+using namespace River::Colors;
+
+
