@@ -134,5 +134,8 @@
     <ClInclude Include="src\Objects\GUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Levels\LevelIntro.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

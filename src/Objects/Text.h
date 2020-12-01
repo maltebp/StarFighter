@@ -9,7 +9,7 @@ namespace Objects::Texts {
 
 	using namespace River::ECS;
 
-	inline Entity* create(Domain* domain, const std::string& text, double x, double y) {
+	inline Entity* create(Domain* domain, const std::string& text, double x, double y, double size, River::Color color) {
 		auto entity = domain->createEntity();
 
 		auto transform = entity->addComponent<Transform>();
@@ -18,9 +18,9 @@ namespace Objects::Texts {
 
 		auto textComp = entity->addComponent<Text>();
 		textComp->font = GlobalAssets::Fonts::PRIMARY;
-		textComp->color = River::Colors::WHITE;
+		textComp->color = color;
 		textComp->text = text;
-		textComp->size = 50;
+		textComp->size = size;
 
 		return entity;
 	}

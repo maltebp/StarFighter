@@ -7,6 +7,8 @@
 
 #include "Log.h"
 
+#include "LevelIntro.h"
+
 #include "Objects/Debris.h"
 #include "Objects/Player.h"
 #include "Objects/Enemy.h"
@@ -66,6 +68,8 @@ inline Entity* createMouseBlock(Domain* domain) {
 
 	return entity;
 }
+
+
 
 
 class Level : public River::Layer {
@@ -196,6 +200,7 @@ private:
 	River::Layer* primaryLayer;
 	River::Layer* backgroundLayer;
 	River::Layer* objectLayer;
+	River::Layer* hudLayer;
 
 	Domain* objectDomain;
 

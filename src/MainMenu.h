@@ -23,15 +23,18 @@ protected:
 		auto title = Objects::GUI::createText(domain, "Star Fighter", GlobalAssets::Fonts::PRIMARY, 100, WHITE, 0, 250);
 
 
-		auto option1 = new Objects::GUI::SelectableText(domain, "Menu item 1", 20, WHITE, 0, 100, [this](Objects::GUI::Selectable* item){
+		auto option1 = new Objects::GUI::SelectableText(domain, "Start", 20, WHITE, 0, 100, [this](Objects::GUI::Selectable* item){
 			LOG("Item 1");
 			getParent()->removeLayer(this);
-			getParent()->pushLayer<Level>();
+			getParent()->pushLayer<LevelIntro>("Level 1", [](LevelIntro* intro){
+				intro->getParent()->removeLayer(intro);
+				intro->getParent()->pushLayer<Level>();
+			});
 		});
 
 
 		auto option2 = new Objects::GUI::SelectableText(domain, "Menu item 2", 20, WHITE, 0, 0, [](Objects::GUI::Selectable* item){
-			LOG("Item 2");
+			
 		});
 
 		auto option3 = new Objects::GUI::SelectableText(domain, "Menu item 3", 20, WHITE, 0, -100, [](Objects::GUI::Selectable* item){
