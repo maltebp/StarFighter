@@ -2,9 +2,6 @@
 
 #include <River.h>
 
-//#include "Assets.h"
-#include "Domains.h"
-
 
 using namespace River::ECS;
 
@@ -22,7 +19,8 @@ public:
 		transform->height = 720;
 
 		auto sprite = backgroundColor->addComponent<Sprite>();
-		//sprite->texture = Textures::BACKGROUND;
+
+
 
 
 	}

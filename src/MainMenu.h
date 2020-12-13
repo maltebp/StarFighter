@@ -26,10 +26,7 @@ protected:
 		auto option1 = new Objects::GUI::SelectableText(domain, "Start", 20, WHITE, 0, 100, [this](Objects::GUI::Selectable* item){
 			LOG("Item 1");
 			getParent()->removeLayer(this);
-			getParent()->pushLayer<LevelIntro>("Level 1", [](LevelIntro* intro){
-				intro->getParent()->removeLayer(intro);
-				intro->getParent()->pushLayer<Level>();
-			});
+			getParent()->pushLayer<Level>();
 		});
 
 

@@ -155,7 +155,9 @@
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Levels\LevelIntro.h" />
+    <ClInclude Include="src\Levels\IntroText.h" />
+    <ClInclude Include="src\Levels\Logic.h" />
+    <ClInclude Include="src\Levels\OldLevel.h" />
     <ClInclude Include="src\Objects\GUI.h" />
     <ClInclude Include="src\Components\HomingMove.h" />
     <ClInclude Include="src\Components\TargetCollider.h" />

@@ -134,7 +134,13 @@
     <ClInclude Include="src\Objects\GUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Levels\LevelIntro.h">
+    <ClInclude Include="src\Levels\IntroText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Levels\OldLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Levels\Logic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
