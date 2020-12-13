@@ -8,6 +8,7 @@
 #include "Log.h"
 
 #include "IntroText.h"
+#include "LevelData.h"
 
 #include "Objects/Debris.h"
 #include "Objects/Player.h"
@@ -25,24 +26,25 @@
 
 using namespace River::ECS;
 
+template<typename L>
 class Level : public River::Layer {
 public:
 
 
-
-	Level() {
-		
+	Level(int levelCount) {
+	
 		// Display intro text
 
 		// Logic layer
-		logic = pushLayer<Logic>();
+		logic = pushLayer<Logic<L>>();
 
-		logic->onPlayerInPosition = [this]() {
+		logic->onPlayerInPosition = [this, levelCount]() {
 			LOG("Player in position");
-			introText = pushLayer<IntroText>("Level X");
+			introText = pushLayer<IntroText>("Level " + std::to_string(levelCount));
 			introText->onStart = [this]() {
 				LOG("Starting level");
 				removeLayer(introText);
+				logic->start();
 			};
 		};
 	}
@@ -50,7 +52,7 @@ public:
 
 
 private:
-	Logic* logic;
+	Logic<L>* logic;
 	IntroText* introText;
 	Domain* objectDomain;
 };

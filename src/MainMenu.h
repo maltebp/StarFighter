@@ -2,6 +2,7 @@
 
 #include <River.h>
 
+#include "Levels/Levels/Level1.h"
 #include "Levels/Level.h"
 
 #include "Objects/GUI.h"
@@ -26,7 +27,7 @@ protected:
 		auto option1 = new Objects::GUI::SelectableText(domain, "Start", 20, WHITE, 0, 100, [this](Objects::GUI::Selectable* item){
 			LOG("Item 1");
 			getParent()->removeLayer(this);
-			getParent()->pushLayer<Level>();
+			getParent()->pushLayer<Level<Level1>>(1);
 		});
 
 

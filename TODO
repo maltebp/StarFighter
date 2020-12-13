@@ -1,0 +1,49 @@
+
+
+
+Plan:
+    ✔ Level intro
+    ☐ Setup system to define a level
+    ☐ Create first level
+    
+
+
+
+Enemies:
+
+    Simple:
+        Stationary, keeps firing targeted at you
+    
+    Chaser:
+        Chases you and keeps firing
+
+    Charger:
+        Chases you, until it's in some distance, then it charges at you. If it hits you, you take a lot of damage. If it hits a wall it's destroyed
+
+    Suicide:
+        Chases you, if it gets into distance it explodes
+
+    Rocketeer:
+        Fires rockets at you. Stationary
+
+    Ufo:
+        Keeps firing, spins around and moves around
+
+
+
+
+
+Level data:
+
+    Reward (for later)
+
+    On start
+
+    On update
+
+    Create enemy
+
+    Boolean to signal that spawning has finished
+
+    Function to spawn enemy (it moves into the scene)
+

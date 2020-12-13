@@ -9,6 +9,7 @@
 
 #include "Log.h"
 
+#include "LevelData.h"
 #include "IntroText.h"
 
 #include "Objects/Debris.h"
@@ -73,9 +74,10 @@ inline Entity* createMouseBlock(Domain* domain) {
 
 
 
+template<typename L> // Level data class
 class Logic : public River::Layer {
 public:
-
+	
 	Logic() {
 		domain = new Domain();
 		camera = new River::Camera(1280, 720);
@@ -172,7 +174,8 @@ public:
 		// Allow player to fly around
 		controlsEnabled = true;
 
-
+		levelData = new L(domain, player);
+		levelData->onStart();
 
 	}
 
@@ -189,6 +192,9 @@ public:
 
 private:
 	double playerFireCooldown = 0.0;
+
+
+	LevelData* levelData;
 
 	River::Layer* primaryLayer;
 	River::Layer* backgroundLayer;

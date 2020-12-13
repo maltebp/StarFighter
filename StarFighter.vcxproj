@@ -156,6 +156,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Levels\IntroText.h" />
+    <ClInclude Include="src\Levels\LevelData.h" />
+    <ClInclude Include="src\Levels\Levels\Level1.h" />
     <ClInclude Include="src\Levels\Logic.h" />
     <ClInclude Include="src\Levels\OldLevel.h" />
     <ClInclude Include="src\Objects\GUI.h" />
