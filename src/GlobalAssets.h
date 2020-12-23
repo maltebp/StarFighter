@@ -56,8 +56,6 @@ namespace GlobalAssets {
 			.addToCollection(COLLECTION)
 			.finish();
 
-
-
 		Texture* METEOR_BROWN_MEDIUM_1 = Texture::create(
 			Image::create("assets/meteor_brown_medium1.png")
 				.setPartiallyTransparent(true)	

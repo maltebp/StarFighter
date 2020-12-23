@@ -155,6 +155,8 @@
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Levels\Enemy.h" />
+    <ClInclude Include="src\Levels\EnemyDefinitions.h" />
     <ClInclude Include="src\Levels\IntroText.h" />
     <ClInclude Include="src\Levels\LevelData.h" />
     <ClInclude Include="src\Levels\Levels\Level1.h" />

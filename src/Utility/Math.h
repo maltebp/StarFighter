@@ -8,7 +8,16 @@
 
 namespace Util::Math {
 
-	// Add stuff perhaps?
+
+	/**
+	 * @brief Clamps the angle to the [0-360) (360 excluded) range
+	 */
+	inline double clampAngle(double angle) {
+		double newAngle = fmod(angle, 360);
+		if( newAngle < 0 ) newAngle += 360;
+		return newAngle;
+	}
+
 
 	/**
 	 * @brief	Calculate the angle in degrees of this point relative to the origin. The angle is between 0 and 360, in counter clockwise direction where 0 is towards the x-axis
@@ -25,8 +34,31 @@ namespace Util::Math {
 	}
 
 
+
+	/**
+	 * @brief	Normalizes this vector
+	*/
+	inline std::tuple<double, double> normalize(double x, double y) {
+		double length = sqrt(x*x+y*y);
+		return { x / length, y / length };
+	}
+
+
 	inline double vectorLength(double x, double y) {
 		return sqrt(x * x + y * y);
+	}
+
+
+	inline double distanceBetweenPoints( double x1, double y1, double x2, double y2 ) {
+		return vectorLength(x1-x2, y1-y2);
+	}
+
+
+	/**
+	 * @brief	Reverse the angle to clamped angle pointing opposite direction
+	*/
+	inline double reverseAngle(double angle) {
+		return clampAngle(angle+180);
 	}
 
 }

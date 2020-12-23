@@ -149,5 +149,11 @@
     <ClInclude Include="src\Levels\Levels\Level1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Levels\Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Levels\EnemyDefinitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

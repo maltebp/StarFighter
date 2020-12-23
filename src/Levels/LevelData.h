@@ -2,6 +2,8 @@
 
 #include "General.h"
 
+#include "EnemyDefinitions.h"
+
 using namespace River::ECS;
 
 class LevelData {
@@ -19,7 +21,7 @@ public:
 	virtual void onUpdate() {}
 
 
-private:
+protected:
 	Domain* domain;
 	Entity* player;
 

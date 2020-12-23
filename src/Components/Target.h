@@ -14,7 +14,14 @@ struct Target : public River::ECS::Component {
 	double targetX = 0;
 	double targetY = 0;
 
-	// How fast it adjusts it rotation
+	// How fast it adjusts its rotation
 	double velocity = 0;
+
+	// Whether or not its triggered in range. Will be set to false, BEFORE
+	// calling the action, so you may reset it to true, in case you want
+	// retrigger
+	bool triggered = false;
+	double triggerRange = 10;
+	std::function<void(River::ECS::Entity*)> triggerAction= nullptr;
 };
 

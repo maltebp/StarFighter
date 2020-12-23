@@ -37,6 +37,15 @@ public:
 				targetY = target->targetY;
 			}
 
+			// Check if target is reached
+			if( !target->triggered ) {
+				if( Util::Math::distanceBetweenPoints(transform->x, transform->y, targetX, targetY) < target->triggerRange ) {
+					target->triggered = true;
+					if( target->triggerAction != nullptr ) target->triggerAction(entity);
+				}
+			}
+
+			// Change rotation
 			auto targetAngle = Util::Math::getAngle(targetX-transform->x, targetY-transform->y);
 			auto angleDifference = targetAngle - transform->rotation;
 
@@ -50,10 +59,7 @@ public:
 			auto angleMovement = (target->velocity > absoluteDifference ? absoluteDifference : target->velocity) * direction;
 
 			transform->rotation += angleMovement;
-
-			transform->rotation = fmod(transform->rotation, 360);
-			if( transform->rotation < 0 )
-				transform->rotation += 360;
+			transform->rotation = Util::Math::clampAngle(transform->rotation);
 		});
 	
 

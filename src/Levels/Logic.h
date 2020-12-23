@@ -73,7 +73,6 @@ inline Entity* createMouseBlock(Domain* domain) {
 }
 
 
-
 template<typename L> // Level data class
 class Logic : public River::Layer {
 public:
@@ -95,7 +94,7 @@ public:
 		}
 
 
-		{
+		{ // Player create
 			player = Objects::Player::create(domain, mouse, [this](auto e){ this->onPlayerDeath(); });
 			auto transform = player->getComponent<Transform>();
 			transform->x = 0;
@@ -108,23 +107,7 @@ public:
 			movement->velocityY = 5;
 
 			player->getComponent<Target>()->active = false;
-		}	
-
-		////Objects::Texts::create(objectDomain, "Hello World!", 0, 0);
-
-		//Objects::Debris::createMeteor(domain, -100, -100, 30);
-		//Objects::Debris::createMeteor(domain,  100,  100, 30);
-		//Objects::Debris::createMeteor(domain, -100,  100, 30);
-		//Objects::Debris::createMeteor(domain,  100, -100, 30);
-		//Objects::Debris::createMeteor(domain,   90,   -40, 30);
-		//Objects::Debris::createMeteor(domain,  -25,  150, 30);
-		//Objects::Debris::createMeteor(domain,    0, -100, 30);
-
-		//// Create impenetrable boundaries
-		//createBoundary(domain, 2000, 2000, -1000 - 1280/2.0,				 0 ); // Left
-		//createBoundary(domain, 2000, 2000,  1000 + 1280/2.0,				 0 ); // Right
-		//createBoundary(domain, 2000, 2000,				0, -1000 - 720/2.0 ); // Top
-		//createBoundary(domain, 2000, 2000,				0,  1000 + 720/2.0 ); // Bottom
+		}
 	}
 
 
@@ -168,11 +151,52 @@ public:
 	}
 
 
+	void onMouseMoveEvent(River::MouseMoveEvent& e) override {
+
+		{	// Update mouse entity position
+			auto transform = mouse->getComponent<Transform>();
+			transform->x = e.positionX;
+			transform->y = e.positionY;
+		}
+	}
+
+		
+	void onKeyEvent(River::KeyEvent& e) override {
+		if( !controlsEnabled ) return;
+		
+		
+		// SPACE -> Accelerate
+		if( e.key == River::Key::SPACE ) {
+			if( e.action == River::KeyEvent::Action::PRESSED ) {
+				auto move = player->getComponent<Move>();
+				auto transform = player->getComponent<Transform>();
+				auto rotationRadians = DEG_TO_RADIANS(transform->rotation);
+				move->accelerationX = cos(rotationRadians) * 0.6;
+				move->accelerationY = sin(rotationRadians) * 0.6;
+			
+			}else if( e.action == River::KeyEvent::Action::UP ) {
+				auto move = player->getComponent<Move>();
+				move->accelerationX = 0;
+				move->accelerationY = 0;
+			}
+		}
+
+		if( e.key == River::Key::D ) {
+			if( e.action == River::KeyEvent::Action::DOWN ) {
+				Objects::Enemy::createUfo(domain, Random::getInt(-600, 600), Random::getInt(-300, 300), Random::getInt(0, 359), 3, 0.75);
+			}
+		}
+	
+	}
+
 	// Starts the level
 	void start() {
 
-		// Allow player to fly around
 		controlsEnabled = true;
+		
+		// Activate player components
+		player->getComponent<Move>()->resistance = 0.05; // Reset player resistance (value should be same as in Player.h)
+		player->getComponent<Target>()-> active = true;
 
 		levelData = new L(domain, player);
 		levelData->onStart();
@@ -192,8 +216,6 @@ public:
 
 private:
 	double playerFireCooldown = 0.0;
-
-
 	LevelData* levelData;
 
 	River::Layer* primaryLayer;
@@ -208,13 +230,12 @@ private:
 	Entity* player;
 
 	Entity* mouse;
-
 	
 	River::Camera* camera;
 
 	bool controlsEnabled = true;
 
-
+	// Whether or not player has moved into position (starting "animation")
 	bool playerInPosition = false;
 };
 
