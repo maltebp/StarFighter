@@ -67,7 +67,6 @@ namespace Objects::Enemy {
 
 
 	inline Entity* createMissile(Domain* domain, double x, double y, double direction, double velocity) {
-		
 		auto object = Objects::Missile::create(domain, x, y, direction, velocity);
 
 		object.sprite->texture = GlobalAssets::Textures::LASER_RED;

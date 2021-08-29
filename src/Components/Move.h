@@ -14,6 +14,6 @@ struct Move : public River::ECS::Component {
 	// Whether or not to update velocity direction according to transform rotation
 	bool forwardVelocity = false;
 
-
 	bool destroyWhenOutOfBounds = false;
+
 };

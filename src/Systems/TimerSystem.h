@@ -14,12 +14,21 @@ public:
 	static void update(Domain* domain, double timeStep) {
 		
 		domain->forMatchingEntities<Timer>([timeStep](Entity* entity, Timer* timer) {
-			if( !timer->active || timer->time <= 0 ) return;
 
-			timer->time -= timeStep;
-			if( timer->time <= 0 ) {
-				timer->active = false;
-				timer->onFinish(entity, timer);
+			// This can be optimized
+			if( timer->active && timer->remainingTime <= 0 ) timer->remainingTime = timer->time;
+			if( !timer->active || timer->remainingTime <= 0 ) return;
+
+			timer->remainingTime -= timeStep;
+			if( timer->remainingTime <= 0 ) {
+				if( timer->periodic ) {
+					timer->active = true;
+					timer->remainingTime += timer->time;
+				} else {
+					timer->active = false;
+					timer->remainingTime = 0;
+				}
+				timer->onFinish(entity);
 			}
 		});
 		
@@ -29,7 +38,7 @@ public:
 			if( timedLife->duration <= 0 ) {
 				entity->destroy();
 			}
-			});
+		});
 	}
 
 

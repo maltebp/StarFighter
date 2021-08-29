@@ -112,7 +112,7 @@ namespace Objects::Player {
 		auto timer = rocket.entity->addComponent<Timer>();
 		timer->active = true;
 		timer->time = (360.0 / target->velocity) * 0.016; 
-		timer->onFinish = [](Entity* e, Timer* t) { e->getComponent<Target>()->active = false; };
+		timer->onFinish = [](Entity* e) { e->getComponent<Target>()->active = false; };
 
 		// Health / On death explosion
 		auto health = rocket.entity->addComponent<Health>();

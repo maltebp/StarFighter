@@ -7,6 +7,7 @@
     - [ ] Clean up enemy spawning system
     - [ ] Setup death scenario
     - [ ] Setup win scenario
+    - [ ] What else is required to have a functioning level system?
  - [ ] Create first level
 
 

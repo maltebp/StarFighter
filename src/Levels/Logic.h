@@ -133,8 +133,8 @@ public:
 			
 		}		
 
-		//if( playerFireCooldown > 0 )
-			//playerFireCooldown -= 0.01;
+		if( playerFireCooldown > 0 )
+			playerFireCooldown -= 0.01;
 
 		//LOG("FPS: " << River::Game::getFps() << "  Entities: " << domain->getNumEntities());
 
@@ -157,6 +157,26 @@ public:
 			auto transform = mouse->getComponent<Transform>();
 			transform->x = e.positionX;
 			transform->y = e.positionY;
+		}
+	}
+
+
+	void onMouseButtonEvent(River::MouseButtonEvent& e) override {
+		if( !controlsEnabled ) return;
+
+		if( e.button == River::MouseButtons::LEFT ) {
+			if( e.action == River::MouseButtonAction::PRESSED ) {
+				if( playerFireCooldown <= 0 ) {
+					Objects::Player::createMissile(domain, player);
+					playerFireCooldown += 0.05;
+				}
+			}
+		}
+		if( e.button == River::MouseButtons::RIGHT ) {
+			if( e.action == River::MouseButtonAction::DOWN ) {
+				auto mouseTransform = mouse->getComponent<Transform>();
+				Objects::Player::createRocket(domain, player, mouseTransform->x, mouseTransform->y);
+			}
 		}
 	}
 
@@ -186,7 +206,6 @@ public:
 				Objects::Enemy::createUfo(domain, Random::getInt(-600, 600), Random::getInt(-300, 300), Random::getInt(0, 359), 3, 0.75);
 			}
 		}
-	
 	}
 
 	// Starts the level

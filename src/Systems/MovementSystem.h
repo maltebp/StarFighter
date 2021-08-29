@@ -77,7 +77,7 @@ public:
 
 		});
 
-
+			
 		// Update movement
  		domain->forMatchingEntities<Transform, Move>([](Entity* entity, Transform* transform, Move* move){
 			transform->rotation += move->rotationVelocity;

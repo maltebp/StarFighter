@@ -179,6 +179,7 @@ public:
 		// Player Missiles - Debris
 		checkCollisions(typeMap[ColliderTypes::PLAYER_MISSILE], typeMap[ColliderTypes::DEBRIS], [&domain](Entity* missile, Entity* debris) {
 			auto missileTransform = missile->getComponent<Transform>();
+			LOG("Collision");
 			debris->getComponent<Health>()->amount -= missile->getComponent<DamageLoad>()->amount;
 			missile->getComponent<BoxCollider>()->enabled = false;
 			domain->destroyEntity(missile);
